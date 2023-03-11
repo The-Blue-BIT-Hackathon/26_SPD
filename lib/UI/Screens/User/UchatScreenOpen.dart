@@ -43,10 +43,10 @@ class _ChatScreenOpenState extends State<ChatScreenOpen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Smile Foundation',
+                        Text('Google',
                             style: kTextPopM16),
                         Text(
-                          'Active 5 mins ago',
+                          'Online',
                           style: kTextPopR12,
                         ),
                       ],

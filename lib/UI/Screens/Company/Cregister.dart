@@ -17,7 +17,7 @@ class CompanyRegister extends StatefulWidget {
 }
 
 class _CompanyRegisterState extends State<CompanyRegister> {
-  var _selectedIntrest;
+  var _selectedInterest;
   List<Type> type = [];
   List<Registered> ngoReg = [];
   String ngoType = "";
@@ -499,7 +499,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                               const Text('Select a category'),
                             ],
                           ),
-                          value: _selectedIntrest,
+                          value: _selectedInterest,
                           items: ['Cleaning', 'Child Care', 'Women Empowerment']
                               .map((cat) {
                             return DropdownMenuItem(
@@ -514,7 +514,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedIntrest = value!;
+                              _selectedInterest = value!;
                             });
                           },
                         ),
@@ -542,7 +542,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                               const Text('Company Size'),
                             ],
                           ),
-                          value: _selectedIntrest,
+                          value: _selectedInterest,
                           items: ['1-10', '10-50', '50-100','100+']
                               .map((cat) {
                             return DropdownMenuItem(
@@ -557,7 +557,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedIntrest = value!;
+                              _selectedInterest = value!;
                             });
                           },
                         ),

@@ -6,7 +6,7 @@ class MyApp extends StatelessWidget {
   List<Map<String, dynamic>> jobDetails = [
     {
       "id": 1,
-      "Company Name": "TechESteel",
+      "Company ID": "TechESteel",
       "Salary": "2-4 LPA",
       "Job Title": "Business Development Intern",
       "City": "Mumbai",
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     },
     {
       "id": 2,
-      "Company Name": "KarmaPoints",
+      "Company ID": "KarmaPoints",
       "Salary": "5-7 LPA",
       "Job Title": "Social Media Marketing",
       "City": "Mumbai",
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
     },
     {
       "id": 3,
-      "Company Name": "Kaveri Pvt",
+      "Company ID": "Kaveri Pvt",
       "Salary": "7-9 LPA",
       "Job Title": "Backend Developer",
       "City": "Lucknow",
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
     },
     {
       "id": 4,
-      "Company Name": "Mobile App Developer Job",
+      "Company ID": "Mobile App Developer Job",
       "Salary": "6-7 LPA",
       "Job Title": "Sigma Infosolutions",
       "City": "Bangalore",
@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
     },
     {
       "id": 5,
-      "Company Name": "SportsBunker",
+      "Company ID": "SportsBunker",
       "Salary": "5 LPA",
       "Job Title": "Fullstack Developer Job",
       "City": "Bangalore",
@@ -135,7 +135,7 @@ class MyApp extends StatelessWidget {
                     color: Color.fromARGB(214, 196, 196, 196),
                     child: Center(
                         child: Text(
-                      '${jobDetails[index]["Company Name"]["Salary"]["Job Title"]["City"]["State"]["Duration"]["Location"]["Daily Working Hours"]["Responsibility"]["Skills Required"]}',
+                      '${jobDetails[index]["Company ID"]["Salary"]["Job Title"]["City"]["State"]["Duration"]["Location"]["Daily Working Hours"]["Responsibility"]["Skills Required"]}',
                       style: const TextStyle(fontSize: 24, color: Colors.white),
                     )),
                   );

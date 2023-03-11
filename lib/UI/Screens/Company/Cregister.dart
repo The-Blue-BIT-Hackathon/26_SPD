@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:csc_picker/csc_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:khoj/UI/Screens/widgets/textfield.dart';
 import 'package:khoj/constants.dart';
+import 'package:khoj/models/company.dart';
 import 'package:khoj/providers/auth_provider.dart';
+import 'package:khoj/providers/company_provider.dart';
 import 'package:provider/provider.dart';
 
 class CompanyRegister extends StatefulWidget {
@@ -17,7 +20,6 @@ class CompanyRegister extends StatefulWidget {
 }
 
 class _CompanyRegisterState extends State<CompanyRegister> {
-  var _selectedIntrest;
   List<Type> type = [];
   List<Registered> ngoReg = [];
   String ngoType = "";
@@ -29,19 +31,31 @@ class _CompanyRegisterState extends State<CompanyRegister> {
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _cityController = TextEditingController();
-  final _zipcodeController = TextEditingController();
+  final _websiteController = TextEditingController();
   final _stateController = TextEditingController();
+  final _linkedinController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _companySizeController = TextEditingController();
+  final _countryController = TextEditingController();
+
+  String get country => _countryController.text;
+  String get address => _addressController.text;
   String get date => _datecontroller.text;
   String get name => _nameController.text;
   String get phone => _phoneController.text;
   String get email => _emailController.text;
   String get bio => _bioController.text;
-  String get zipcode => _zipcodeController.text;
+  String get website => _websiteController.text;
   String get city => _cityController.text;
   String get state => _stateController.text;
+  String get link => _linkedinController.text;
+  String get companySize => _companySizeController.text;
+
+  final _form = GlobalKey<FormState>();
   String category = "";
   File? imageFile;
   var isLoading = false;
+  var _selectedIntrest;
 
   @override
   void initState() {
@@ -51,8 +65,9 @@ class _CompanyRegisterState extends State<CompanyRegister> {
     _bioController.text = "";
     _cityController.text = "";
     _stateController.text = "";
-    _zipcodeController.text = "";
+    _websiteController.text = "";
     _datecontroller.text = "";
+    _linkedinController.text = "";
     type.add(Type("Profit", false));
     type.add(Type("Non-Profit", false));
     ngoReg.add(Registered("Yes", false));
@@ -65,53 +80,61 @@ class _CompanyRegisterState extends State<CompanyRegister> {
     Provider.of<Auth>(context).checkUser();
     super.didChangeDependencies();
   }
-  // @override
-  // void dispose() {
-  //   _nameController.dispose();
-  //   _phoneController.dispose();
-  //   _emailController.dispose();
-  //   _bioController.dispose();
-  //   _datecontroller.dispose();
-  //   _cityController.dispose();
-  //   _stateController.dispose();
-  //   _zipcodeController.dispose();
-  //   super.dispose();
-  // }
 
-  // Future _createProfile(BuildContext ctx) async {
-  //   var authProvider = Provider.of<Auth>(ctx, listen: false);
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   if (imageFile == null) {
-  //     print("Please Select Profile Pic");
-  //   } else {
-  //     await authProvider
-  //         .registerNgo(bio, name, phone, email, ngoType, date, ngoRegisterd,
-  //             city, zipcode, state, category, imageFile!)
-  //         .catchError((e) {
-  //       print("Failure");
-  //     }).then((_) {
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //       Navigator.of(ctx).pushReplacementNamed(NgoBottomBar.routeName);
-  //     });
-  //   }
-  // }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _bioController.dispose();
+    _datecontroller.dispose();
+    _cityController.dispose();
+    _stateController.dispose();
+    _websiteController.dispose();
+    _linkedinController.dispose();
+    super.dispose();
+  }
 
-  // Future _getFromGallery() async {
-  //   PickedFile? pickedFile = await ImagePicker().getImage(
-  //     source: ImageSource.gallery,
-  //     maxWidth: 1800,
-  //     maxHeight: 1800,
-  //   );
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       imageFile = File(pickedFile.path);
-  //     });
-  //   }
-  // }
+  Future _createProfile(BuildContext ctx) async {
+    var companyProvider = Provider.of<CompanyProvider>(ctx, listen: false);
+    final isValid = _form.currentState!.validate();
+    final auth = FirebaseAuth.instance;
+    setState(() {
+      isLoading = true;
+    });
+    _form.currentState!.save();
+    if (isValid) {
+      await companyProvider
+          .registerCompany(Company(
+        Cname: name,
+        Cemail: email,
+        Cphone: phone,
+        website: website,
+        linkedin: link,
+        dateofest: date,
+        city: city,
+        state: state,
+        address: address,
+        desc: bio,
+        company_size: companySize,
+        cid: auth.currentUser!.uid,
+        country: country,
+      ))
+          .catchError((e) {
+        print("Failure");
+      }).then((_) {
+        setState(() {
+          isLoading = false;
+        });
+        // Navigator.of(ctx).pushReplacementNamed(NgoBottomBar.routeName);
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,171 +147,129 @@ class _CompanyRegisterState extends State<CompanyRegister> {
               children: [
                 const SizedBox(height: 30.0),
                 //profile picture
-                Stack(
-                  children: [
-                    imageFile != null
-                        ? CircleAvatar(
-                            radius: 50,
-                            child: CircleAvatar(
-                              backgroundImage: Image.file(
-                                imageFile!,
-                                fit: BoxFit.cover,
-                              ).image,
-                              radius: 60,
-                            ),
-                          )
-                        : const CircleAvatar(
-                            radius: 50,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("assets/images/profile.png"),
-                              radius: 60,
-                            ),
-                          ),
-                    Positioned(
-                      bottom: 1,
-                      right: 1,
-                      child: InkWell(
-                        onTap: () {
-                          // _getFromGallery();
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(2.0),
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+
+                const SizedBox(height: 20.0),
+                Form(
+                  key: _form,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        controller: _nameController,
+                        hintText: 'Dip Hire',
+                        icon: Icons.abc,
+                        text: 'Company Name',
+                        Ttype: TextInputType.name,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
+                      const SizedBox(height: 10.0),
+                      CustomTextField(
+                        controller: _phoneController,
+                        hintText: '+91987654321',
+                        icon: Icons.abc,
+                        text: 'Contact number',
+                        Ttype: TextInputType.phone,
+                      ),
+                      const SizedBox(height: 10.0),
+                      // TextFormField(
+                      //   maxLength: 10,
+                      //   controller: _phoneController,
+                      //   keyboardType: TextInputType.number,
+                      //   decoration: InputDecoration(
+                      //     counterText: '',
+                      //     prefixText: '+91 ',
+                      //     prefixStyle: kTextPopB14,
+                      //     hintText: "Contact number",
+                      //     hintStyle: kTextPopR14,
+                      //     icon: Icon(Icons.phone),
+                      //     filled: true,
+                      //     fillColor: Colors.green.shade100,
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //       borderSide: BorderSide.none,
+                      //     ),
+                      //   ),
+                      //   textInputAction: TextInputAction.next,
+                      //   validator: (value) {
+                      //     if (value!.isEmpty) {
+                      //       return 'Please enter your phone number';
+                      //     }
+                      //     final phoneRegex = RegExp(r'^\+?\d{9,15}$');
+                      //     if (!phoneRegex.hasMatch(value)) {
+                      //       return 'Please enter a valid phone number';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
 
-                const SizedBox(height: 20.0),
-                // Row(
-                //   children: [
-                //     const SizedBox(width: 10),
-                //     Text(
-                //       "Ngo Details",
-                //       textAlign: TextAlign.left,
-                //       style: kTextPopB14,
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(width: 20),
+                      const SizedBox(height: 10.0),
+                      CustomTextField(
+                        controller: _emailController,
+                        hintText: 'company@gmail.com',
+                        icon: Icons.work,
+                        text: 'Company email',
+                        Ttype: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 10.0),
+                      CustomTextField(
+                        controller: _bioController,
+                        hintText: 'abc',
+                        icon: Icons.work,
+                        text: 'Company Description',
+                        Ttype: TextInputType.text,
+                      ),
+                      const SizedBox(height: 10.0),
+                      CustomTextField(
+                        controller: _websiteController,
+                        hintText: 'company.com',
+                        icon: Icons.work,
+                        text: 'Company Website',
+                        Ttype: TextInputType.url,
+                      ),
+                      const SizedBox(height: 10.0),
 
-                // name
-                CustomTextField(
-                  controller: _nameController,
-                  hintText: 'Dip Hire',
-                  icon: Icons.abc,
-                  text: 'Company Name',
-                  Ttype: TextInputType.name,
-                ),
-                const SizedBox(height: 10.0),
-                CustomTextField(
-                  controller: _phoneController,
-                  hintText: '+91987654321',
-                  icon: Icons.abc,
-                  text: 'Contact number',
-                  Ttype: TextInputType.phone,
-                ),
-                const SizedBox(height: 10.0),
-                // TextFormField(
-                //   maxLength: 10,
-                //   controller: _phoneController,
-                //   keyboardType: TextInputType.number,
-                //   decoration: InputDecoration(
-                //     counterText: '',
-                //     prefixText: '+91 ',
-                //     prefixStyle: kTextPopB14,
-                //     hintText: "Contact number",
-                //     hintStyle: kTextPopR14,
-                //     icon: Icon(Icons.phone),
-                //     filled: true,
-                //     fillColor: Colors.green.shade100,
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.circular(10),
-                //       borderSide: BorderSide.none,
-                //     ),
-                //   ),
-                //   textInputAction: TextInputAction.next,
-                //   validator: (value) {
-                //     if (value!.isEmpty) {
-                //       return 'Please enter your phone number';
-                //     }
-                //     final phoneRegex = RegExp(r'^\+?\d{9,15}$');
-                //     if (!phoneRegex.hasMatch(value)) {
-                //       return 'Please enter a valid phone number';
-                //     }
-                //     return null;
-                //   },
-                // ),
+                      const SizedBox(height: 10.0),
 
-                const SizedBox(height: 10.0),
-                CustomTextField(
-                  controller: _emailController,
-                  hintText: 'company@gmail.com',
-                  icon: Icons.work,
-                  text: 'Company email',
-                  Ttype: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 10.0),
-                CustomTextField(
-                  controller: _bioController,
-                  hintText: 'abc',
-                  icon: Icons.work,
-                  text: 'Company Description',
-                  Ttype: TextInputType.text,
-                ),
-                const SizedBox(height: 10.0),
-                CustomTextField(
-                  controller: _bioController,
-                  hintText: 'company.com',
-                  icon: Icons.work,
-                  text: 'Company Website',
-                  Ttype: TextInputType.url,
-                ),
-                const SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
 
-                SizedBox(height: 10.0),
+                      CustomTextField(
+                        controller: _addressController,
+                        hintText: 'Address',
+                        icon: Icons.location_on_rounded,
+                        text: 'Company Location',
+                        Ttype: TextInputType.text,
+                      ),
+                      const SizedBox(height: 10.0),
 
-                const SizedBox(height: 10.0),
+                      CSCPicker(
+                        dropdownDecoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          color: kbgColor,
+                          border: Border.all(color: kbgColor, width: 2),
+                        ),
+                        disabledDropdownDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: kbgColor,
+                            border: Border.all(color: kbgColor, width: 1)),
+                        layout: Layout.vertical,
+                        onCountryChanged: (country) {
+                          _countryController.text = country.toString();
+                        },
+                        onStateChanged: (s) {
+                          setState(() {
+                            _stateController.text = s.toString();
+                          });
+                        },
+                        onCityChanged: (city) {
+                          _cityController.text = city.toString();
+                        },
+                      ),
 
-                CustomTextField(
-                  controller: _bioController,
-                  hintText: 'Address',
-                  icon: Icons.location_on_rounded,
-                  text: 'Company Location',
-                  Ttype: TextInputType.text,
-                ),
-                const SizedBox(height: 10.0),
-
-                CSCPicker(
-                  dropdownDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: kbgColor,
-                    border: Border.all(color: kbgColor, width: 2),
+                      const SizedBox(height: 10),
+                      const Divider(),
+                      const SizedBox(height: 10),
+                    ],
                   ),
-                  disabledDropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: kbgColor,
-                      border: Border.all(color: kbgColor, width: 1)),
-                  layout: Layout.vertical,
-                  onCountryChanged: (country) {},
-                  onStateChanged: (state) {},
-                  onCityChanged: (city) {},
                 ),
-
-                const SizedBox(height: 10),
-                Divider(),
-                const SizedBox(height: 10),
                 Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 22.0, vertical: 0.0),
@@ -320,7 +301,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                             decoration: InputDecoration(
                               hintText: "Date",
                               hintStyle: kTextPopR14,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.calendar_today_rounded,
                               ),
                               filled: true,
@@ -365,48 +346,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           ),
                         ],
                       ),
-                      // Container(
-                      //   padding: const EdgeInsets.all(10),
-                      //   width: double.infinity,
-                      //   height: 50.0,
-                      //   decoration: BoxDecoration(
-                      //     color: kbgColor,
-                      //     borderRadius: BorderRadius.circular(10.0),
-                      //   ),
-                      //   child: DropdownButton(
-                      //     icon: Icon(Icons.arrow_drop_down_rounded),
-                      //     hint: Row(
-                      //       children: [
-                      //         const SizedBox(width: 10.0),
-                      //         Icon(
-                      //           Icons.interests_rounded,
-                      //           color: kprimaryColor,
-                      //         ),
-                      //         const SizedBox(width: 10.0),
-                      //         const Text('Select a category'),
-                      //       ],
-                      //     ),
-                      //     value: _selectedIntrest,
-                      //     items: ['Cleaning', 'Child Care', 'Women Empowerment']
-                      //         .map((cat) {
-                      //       return DropdownMenuItem(
-                      //         value: cat,
-                      //         child: Text(cat),
-                      //         onTap: () {
-                      //           setState(() {
-                      //             category = cat;
-                      //           });
-                      //         },
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (value) {
-                      //       setState(() {
-                      //         _selectedIntrest = value!;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-
                       const SizedBox(height: 10.0),
                       Container(
                         padding: const EdgeInsets.all(10),
@@ -417,7 +356,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: DropdownButton(
-                          icon: Icon(Icons.arrow_drop_down_rounded),
+                          icon: const Icon(Icons.arrow_drop_down_rounded),
                           hint: Row(
                             children: [
                               const SizedBox(width: 10.0),
@@ -430,20 +369,21 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                             ],
                           ),
                           value: _selectedIntrest,
-                          items: ['1-10', '10-50', '50-100', '100+'].map((cat) {
+                          items:
+                              ['1-10', '10-50', '50-100', '100+'].map((size) {
                             return DropdownMenuItem(
-                              value: cat,
-                              child: Text(cat),
+                              value: size,
+                              child: Text(size),
                               onTap: () {
                                 setState(() {
-                                  category = cat;
+                                  _selectedIntrest = size;
                                 });
                               },
                             );
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedIntrest = value!;
+                              _companySizeController.text = value.toString();
                             });
                           },
                         ),
@@ -467,36 +407,17 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                             setState(() {
                               isLoading = true;
                             });
-                            // _createProfile(context);
+                            _createProfile(context);
                           },
                           child: const Text(
                             "Register",
                           ),
                         ),
                       ),
-                      // FloatingActionButton.extended(
-                      //   elevation: 0,
-                      //   backgroundColor: Colors.green,
-                      //   foregroundColor: Colors.green,
-                      //   shape: const StadiumBorder(
-                      //       side: BorderSide(
-                      //           color: Colors.green, width: 1)),
-                      //   label: const Text(
-                      //     "        Done        ",
-                      //     style: TextStyle(color: Colors.white),
-                      //   ),
-                      //   onPressed: () {
-                      //     // Navigator.of(context).pushReplacementNamed(NgoBottomBar.routeName);
-                      //     setState(() {
-                      //       isLoading = true;
-                      //     });
-                      //     _createProfile(context);
-                      //   },
-                      // ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
               ],
             ),
           ),

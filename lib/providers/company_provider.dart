@@ -26,6 +26,7 @@ class CompanyProvider extends ChangeNotifier {
           "Linkedin": cmy.linkedin,
           "State": cmy.state,
           "Description": cmy.desc,
+          "Country" : cmy.country,
         }),
       );
       final prefs = await SharedPreferences.getInstance();
@@ -58,6 +59,7 @@ class CompanyProvider extends ChangeNotifier {
           company_size: value['Company_Size'],
           cid: value['UID'],
           desc: value['Description'],
+          country: value['Country'],
         );
       });
       notifyListeners();

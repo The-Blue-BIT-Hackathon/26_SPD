@@ -405,61 +405,8 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           // border: Border.all(color: kprimaryColor, width: 2),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Row(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Is NGO Registered?',
-                                  style: kTextPopR14,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              height: 30,
-                              width: 100,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount: ngoReg.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          ngoReg.forEach(
-                                              (reg) => reg.isSelected = false);
-                                          ngoReg[index].isSelected = true;
-                                          ngoRegisterd = ngoReg[index].name;
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.only(right: 9),
-                                        child: Chip(
-                                          label: Text(
-                                            ngoReg[index].name,
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: !ngoReg[index].isSelected
-                                                    ? Colors.green
-                                                    : Colors.white),
-                                          ),
-                                          backgroundColor:
-                                              !ngoReg[index].isSelected
-                                                  ? Colors.white
-                                                  : Colors.green,
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ],
-                        ),
+                        
                       ),
-                      const SizedBox(height: 25.0),
                       Row(
                         children: [
                           Text(
@@ -518,13 +465,13 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                       Row(
                         children: [
                           Text(
-                            "NGO focus on",
+                            "Company Details",
                             textAlign: TextAlign.left,
                             style: kTextPopR14,
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15.0),
+                      const SizedBox(height: 10.0),
                       Container(
                         padding: const EdgeInsets.all(10),
                         width: double.infinity,
@@ -548,6 +495,49 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           ),
                           value: _selectedIntrest,
                           items: ['Cleaning', 'Child Care', 'Women Empowerment']
+                              .map((cat) {
+                            return DropdownMenuItem(
+                              value: cat,
+                              child: Text(cat),
+                              onTap: () {
+                                setState(() {
+                                  category = cat;
+                                });
+                              },
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedIntrest = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 10.0),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: double.infinity,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color: Colors.green.shade100,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: DropdownButton(
+                          icon: Icon(Icons.arrow_drop_down_rounded),
+                          hint: Row(
+                            children: [
+                              const SizedBox(width: 10.0),
+                              Icon(
+                                Icons.interests_rounded,
+                                color: kprimaryColor,
+                              ),
+                              const SizedBox(width: 10.0),
+                              const Text('Company Size'),
+                            ],
+                          ),
+                          value: _selectedIntrest,
+                          items: ['1-10', '10-50', '50-100','100+']
                               .map((cat) {
                             return DropdownMenuItem(
                               value: cat,

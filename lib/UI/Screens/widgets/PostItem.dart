@@ -2,12 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import '../../../constants.dart';
 
-class Post extends StatefulWidget {
+class PostItem extends StatefulWidget {
+  final String title;
+  final String companyName;
+  final String location;
+  final String salary;
+  final String duration;
+  final String dailyhrs;
+  final String startDate;
+  final String applyStatus;
+  final String pid;
+  final String cid;
+
+  const PostItem({
+    required this.title,
+    required this.companyName,
+    required this.location,
+    required this.salary,
+    required this.duration,
+    required this.dailyhrs,
+    required this.startDate,
+    required this.applyStatus,
+    required this.pid,
+    required this.cid,
+  });
+
   @override
-  State<Post> createState() => _PostState();
+  State<PostItem> createState() => _PostState();
 }
 
-class _PostState extends State<Post> {
+class _PostState extends State<PostItem> {
   bool _isExpanded = true;
   bool _isLike = true;
   bool _isApply = true;
@@ -56,14 +80,7 @@ class _PostState extends State<Post> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => NgoProfile(),
-                    //   ),
-                    // );
-                  },
+                  onTap: () {},
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Container(
@@ -82,14 +99,14 @@ class _PostState extends State<Post> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Flutter dev intership',
-                          style: kTextPopM16,
+                          widget.title,
+                          style: kTextPopM16.merge(TextStyle(fontSize: 10)),
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        Text('Aikyam Pvt Ltd', style: kTextPopR14),
+                        Text(widget.companyName, style: kTextPopR14),
                         Text(' | ', style: kTextPopR14),
                         Text('Pune', style: kTextPopR14),
                       ],
@@ -121,7 +138,7 @@ class _PostState extends State<Post> {
                             size: 18,
                           ),
                           Text(
-                            '5k-10k',
+                            widget.salary,
                             style: kTextPopB14,
                           ),
                         ],
@@ -136,7 +153,7 @@ class _PostState extends State<Post> {
                             width: 3.0,
                           ),
                           Text(
-                            '6-12 Months',
+                            widget.duration,
                             style: kTextPopB14,
                           ),
                         ],
@@ -151,7 +168,7 @@ class _PostState extends State<Post> {
                             width: 3.0,
                           ),
                           Text(
-                            '5-7 Hrs/day',
+                            widget.dailyhrs,
                             style: kTextPopB14,
                           ),
                         ],
@@ -180,7 +197,7 @@ class _PostState extends State<Post> {
                             ],
                           ),
                           Text(
-                            'Immediate',
+                            widget.startDate,
                             style: kTextPopB14,
                           ),
                         ],
@@ -203,7 +220,7 @@ class _PostState extends State<Post> {
                             ],
                           ),
                           Text(
-                            'Pune,India',
+                            widget.location,
                             style: kTextPopB14,
                           )
                         ],

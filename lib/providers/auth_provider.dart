@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -79,7 +81,8 @@ class Auth extends ChangeNotifier {
       final useruri = Uri.parse(
           "https://shopify-84a7c-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
       final res = await http.get(useruri);
-      if(res.body.isNotEmpty)
+      final resData = json.decode(res.body);
+      if(resData['error'] == null)
         {
           _isUser = 'JobSeeker';
           _profileCreated = true;
@@ -90,7 +93,8 @@ class Auth extends ChangeNotifier {
           final cmpuri = Uri.parse(
               "https://shopify-84a7c-default-rtdb.firebaseio.com/Company/${_auth.currentUser!.uid}.json");
           final rescmp = await http.get(cmpuri);
-          if(rescmp.body.isNotEmpty)
+          final resDataC = json.decode(rescmp.body);
+          if(resDataC['error'] == null)
             {
               _isUser = 'JobPoster';
               _profileCreated = true;

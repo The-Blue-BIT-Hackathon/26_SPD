@@ -10,7 +10,7 @@ class CompanyProvider extends ChangeNotifier {
   Future registerCompany(Company cmy) async {
     try {
       final uri = Uri.parse(
-          "https://khoj-5415b-default-rtdb.firebaseio.com/Company.json");
+          "https://khoj-5415b-default-rtdb.firebaseio.com/Company/${cmy.cid}.json");
       final res = await http.post(
         uri,
         body: json.encode({
@@ -39,7 +39,7 @@ class CompanyProvider extends ChangeNotifier {
 
   Future getCompany(String id) async {
     final uri = Uri.parse(
-        "https://shopify-84a7c-default-rtdb.firebaseio.com/Users/$id.json");
+        "https://shopify-84a7c-default-rtdb.firebaseio.com/Company/$id.json");
     try {
       final res = await http.get(uri);
       final resData = json.decode(res.body) as Map<String, dynamic>;

@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future loadScreen() async {
     var authProvider = Provider.of<Auth>(context, listen: false);
+    // await authProvider.signOut();
     Future.delayed(const Duration(seconds: 2), () async{
       await authProvider.autoLogin().then((_) {
         if (authProvider.isAuth) {

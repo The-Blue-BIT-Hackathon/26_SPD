@@ -1,4 +1,5 @@
 class Company {
+  String subId;
   final String Cname;
   final String Cemail;
   final String Cphone;
@@ -14,6 +15,7 @@ class Company {
   final String country;
 
   Company({
+    required this.subId,
     required this.Cname,
     required this.Cemail,
     required this.Cphone,

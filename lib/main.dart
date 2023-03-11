@@ -1,5 +1,6 @@
 import 'package:khoj/providers/auth_provider.dart';
 import 'package:khoj/providers/company_provider.dart';
+import 'package:khoj/providers/post_provider.dart';
 import 'package:khoj/providers/user_provider.dart';
 import 'package:khoj/routes.dart';
 
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => CompanyProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => PostProvider(),
         ),
       ],
       child: MaterialApp(

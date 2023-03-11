@@ -1,5 +1,5 @@
 class Post {
-  final String id;
+  String id;
   final String cid;
   final String salary;
   final String title;

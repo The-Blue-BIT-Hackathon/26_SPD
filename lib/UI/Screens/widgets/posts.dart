@@ -158,7 +158,7 @@ class _PostState extends State<Post> {
                       ),
                     ],
                   ),
-                  Divider(color: Colors.transparent),
+                  const Divider(color: Colors.transparent),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -231,12 +231,12 @@ class _PostState extends State<Post> {
                           ),
                   ),
                 ),
-                Spacer(),
-                OutlinedButton(onPressed: () {}, child: Text("view")),
-                SizedBox(
+                const Spacer(),
+                OutlinedButton(onPressed: () {}, child: const Text("view")),
+                const SizedBox(
                   width: 10.0,
                 ),
-                ElevatedButton(onPressed: () {}, child: Text("Apply")),
+                ElevatedButton(onPressed: () {}, child: const Text("Apply")),
               ],
             ),
           ],

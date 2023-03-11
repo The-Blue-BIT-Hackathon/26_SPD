@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class Users {
+  String subId;
   final String name;
   final String phone;
   final String email;
@@ -14,6 +15,7 @@ class Users {
   final String id;
 
   Users({
+    required this.subId,
     required this.name,
     required this.phone,
     required this.email,

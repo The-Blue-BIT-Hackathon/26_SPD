@@ -86,6 +86,7 @@ class _UserRegisterState extends State<UserRegister> {
         await userProvider
             .registerUser(
           Users(
+            subId: "",
             name: name,
             phone: phone,
             email: email,

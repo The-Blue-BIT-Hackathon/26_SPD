@@ -33,7 +33,7 @@ class _LogInState extends State<LogIn> {
           .authenticate(phoneNo)
           .catchError((e) {
         print("Failure");
-      }).then((value) => Navigator.of(context).pushNamed(OtpScreen.routeName));
+      }).then((value) => Navigator.of(context).pushNamed(OtpScreen.routeName, arguments: phoneNo));
     } else {
       print("Failure");
     }

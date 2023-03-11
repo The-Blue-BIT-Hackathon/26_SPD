@@ -29,6 +29,11 @@ class CompanyProvider extends ChangeNotifier {
           "Country" : cmy.country,
         }),
       );
+      final resData = json.decode(res.body);
+      if(resData['error']==null)
+      {
+        cmy.subId = resData['name'];
+      }
       final prefs = await SharedPreferences.getInstance();
       prefs.setBool('Profile', true);
       notifyListeners();
@@ -40,13 +45,14 @@ class CompanyProvider extends ChangeNotifier {
 
   Future getCompany(String id) async {
     final uri = Uri.parse(
-        "https://shopify-84a7c-default-rtdb.firebaseio.com/Company/$id.json");
+        "https://khoj-5415b-default-rtdb.firebaseio.com/Company/$id.json");
     try {
       final res = await http.get(uri);
       final resData = json.decode(res.body) as Map<String, dynamic>;
       Company? cmy;
       resData.forEach((key, value) {
         cmy = Company(
+          subId: key,
           Cname: value['Name'],
           Cphone: value['PhoneNo'],
           Cemail: value['Email'],

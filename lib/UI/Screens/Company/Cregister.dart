@@ -106,6 +106,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
     if (isValid) {
       await companyProvider
           .registerCompany(Company(
+        subId: "",
         Cname: name,
         Cemail: email,
         Cphone: phone,

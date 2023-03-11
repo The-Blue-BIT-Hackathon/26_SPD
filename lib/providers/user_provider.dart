@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,11 @@ class UserProvider extends ChangeNotifier {
           "ProfilePic": downloadUrl,
         }),
       );
+      final resData = json.decode(res.body);
+      if(resData['error']==null)
+      {
+        user.subId = resData['name'];
+      }
       final prefs = await SharedPreferences.getInstance();
       prefs.setBool('Profile', true);
       notifyListeners();
@@ -47,15 +53,16 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future getUser(String id) async {
+  Future getUser(String id, String subid) async {
     final uri = Uri.parse(
-        "https://shopify-84a7c-default-rtdb.firebaseio.com/Users/$id.json");
+        "https://khoj-5415b-default-rtdb.firebaseio.com/Users/$id.json");
     try {
       final res = await http.get(uri);
       final resData = json.decode(res.body) as Map<String, dynamic>;
       Users? user;
       resData.forEach((key, value) {
         user = Users(
+          subId: key,
           name: value['Name'],
           phone: value['PhoneNo'],
           email: value['Email'],
@@ -64,8 +71,8 @@ class UserProvider extends ChangeNotifier {
           yearofgrad: value['DateOfGraduation'],
           github: value['Github'],
           linkedin: value['Linkedin'],
-          resume: value['Resume'],
-          profile: value['ProfilePic'],
+          resume: File(value['Resume']),
+          profile: File(value['ProfilePic']),
           id: value['UID'],
         );
       });

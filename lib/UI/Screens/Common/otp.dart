@@ -22,11 +22,28 @@ class _OtpScreenState extends State<OtpScreen> {
   final _otpController = TextEditingController();
   String get otp => _otpController.text;
   var isLoading = false;
+  var phoneNo;
+
+  @override
+  void didChangeDependencies() {
+    phoneNo = ModalRoute.of(context)?.settings.arguments.toString();
+    super.didChangeDependencies();
+  }
 
   @override
   void dispose() {
     _otpController.dispose();
     super.dispose();
+  }
+
+  Future _resendOtp(BuildContext ctx) async {
+    var isValid = false;
+    isLoading = true;
+    await Provider.of<Auth>(ctx, listen: false)
+        .authenticate(phoneNo)
+        .catchError((e) {
+      print("Failure");
+    }).then((value) => print("Resent"));
   }
 
   Future _verifyOtp(BuildContext ctx) async {
@@ -193,10 +210,15 @@ class _OtpScreenState extends State<OtpScreen> {
                       const SizedBox(
                         height: 18,
                       ),
-                      Text(
-                        "Resend New Code",
-                        style: kTextPopB16.copyWith(color: kprimaryColor),
-                        textAlign: TextAlign.center,
+                      InkWell(
+                        onTap: () {
+                          _resendOtp(context);
+                        },
+                        child: Text(
+                          "Resend New Code",
+                          style: kTextPopB16.copyWith(color: kprimaryColor),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ],
                   ),

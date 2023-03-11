@@ -94,6 +94,7 @@ class Auth extends ChangeNotifier {
               "https://shopify-84a7c-default-rtdb.firebaseio.com/Company/${_auth.currentUser!.uid}.json");
           final rescmp = await http.get(cmpuri);
           final resDataC = json.decode(rescmp.body);
+          print(resDataC);
           if(resDataC['error'] == null)
             {
               _isUser = 'JobPoster';

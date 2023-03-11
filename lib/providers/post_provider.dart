@@ -5,9 +5,10 @@ import 'package:http/http.dart' as http;
 import '../models/post.dart';
 
 class PostProvider extends ChangeNotifier {
+
   Future createPost(Post post) async {
     final uri = Uri.parse(
-        "https://khoj-5415b-default-rtdb.firebaseio.com/Company/${post.cid}/Post/${post.id}.json");
+        "https://khoj-5415b-default-rtdb.firebaseio.com/Posts/${post.cid}.json");
     try {
       final res = await http.post(
         uri,
@@ -24,7 +25,12 @@ class PostProvider extends ChangeNotifier {
           'Skills': post.skills,
         }),
       );
-      print(res.body);
+      final resData = json.decode(res.body);
+      if(resData['error']==null)
+        {
+          post.id = resData['name'];
+        }
+
     } catch (e) {
       rethrow;
     }

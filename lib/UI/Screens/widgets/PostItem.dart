@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:khoj/UI/Screens/widgets/BottomSheet.dart';
+import 'package:khoj/UI/Screens/widgets/viewPost.dart';
 import '../../../constants.dart';
 
 class PostItem extends StatefulWidget {
@@ -233,27 +235,47 @@ class _PostState extends State<PostItem> {
             const SizedBox(height: 16),
             Row(
               children: [
-                GestureDetector(
-                  onTap: toggleLike,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _isLike
-                        ? Icon(
-                            Icons.bookmark_outlined,
-                            color: kprimaryColor,
-                          )
-                        : Icon(
-                            Icons.bookmark_border_rounded,
-                            color: kprimaryColor,
-                          ),
-                  ),
+                // GestureDetector(
+                //   onTap: toggleLike,
+                //   child: Container(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: _isLike
+                //         ? Icon(
+                //             Icons.bookmark_outlined,
+                //             color: kprimaryColor,
+                //           )
+                //         : Icon(
+                //             Icons.bookmark_border_rounded,
+                //             color: kprimaryColor,
+                //           ),
+                //   ),
+                // ),
+                Expanded(
+                  child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntershipDetails()));
+                      },
+                      child: Text("view")),
                 ),
-                const Spacer(),
-                OutlinedButton(onPressed: () {}, child: const Text("view")),
-                const SizedBox(
+
+                SizedBox(
                   width: 10.0,
                 ),
-                ElevatedButton(onPressed: () {}, child: const Text("Apply")),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        toggleApply();
+                      });
+                    },
+                    child: Text(
+                      _isApply ? 'Apply' : 'Withdrow',
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

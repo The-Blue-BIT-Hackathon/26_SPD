@@ -52,15 +52,17 @@ class _PostState extends State<PostItem> {
     });
   }
 
-  Future toggleApply() async{
-    await Provider.of<PostProvider>(context, listen: false)
-        .applyPost(widget.pid)
-        .catchError((e) {
-      print(e);
-    });
-    setState(() {
-      _isApply = !_isApply;
-    });
+  Future toggleApply() async {
+    if (_isApply) {
+      await Provider.of<PostProvider>(context, listen: false)
+          .applyPost(widget.pid)
+          .catchError((e) {
+        print(e);
+      });
+      setState(() {
+        _isApply = !_isApply;
+      });
+    }
   }
 
   @override

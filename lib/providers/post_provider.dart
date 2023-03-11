@@ -64,10 +64,9 @@ class PostProvider extends ChangeNotifier {
       final res3 = await http.get(uri2);
       final extractedData1 = json.decode(res3.body) as Map<String, dynamic>;
       extractedData1.forEach((key, value) {
-        if(value['PUID']!=null)
-          {
-            puid = value['PUID'];
-          }
+        if (key == 'PUID') {
+          puid = value;
+        }
       });
       puid.add(pid);
       final res4 = await http.patch(uri2,

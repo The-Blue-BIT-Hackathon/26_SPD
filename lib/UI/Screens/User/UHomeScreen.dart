@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/widgets/AppBarHome.dart';
+import 'package:khoj/UI/Screens/widgets/UAppDrawer.dart';
 import 'package:khoj/UI/Screens/widgets/posts.dart';
 
 class UHomeScreen extends StatelessWidget {
@@ -27,11 +28,15 @@ class UHomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        // drawer: UserAppdrawer(),
+        drawer: UserAppdrawer(),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Post()
+              Post(),
+              Post(),
+              Post(),
+              Post(),
+              Post(),
               // Post(),
               // Post(),
               // Post(),

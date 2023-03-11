@@ -1,7 +1,3 @@
-// import 'package:aikyam/providers/auth_provider.dart';
-// import 'package:aikyam/providers/ngo_provider.dart';
-// import 'package:aikyam/providers/user_provider.dart';
-// import 'package:aikyam/routes.dart';
 import 'package:khoj/routes.dart';
 
 import 'constants.dart';

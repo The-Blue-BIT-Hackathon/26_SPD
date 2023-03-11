@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:khoj/UI/Screens/widgets/textfield.dart';
 import 'package:khoj/constants.dart';
@@ -17,7 +17,7 @@ class CompanyRegister extends StatefulWidget {
 }
 
 class _CompanyRegisterState extends State<CompanyRegister> {
-  var _selectedInterest;
+  var _selectedIntrest;
   List<Type> type = [];
   List<Registered> ngoReg = [];
   String ngoType = "";
@@ -228,175 +228,53 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                 // ),
 
                 const SizedBox(height: 10.0),
-                 CustomTextField(
+                CustomTextField(
                     controller: _emailController,
                     hintText: 'company@gmail.com',
                     icon: Icons.work,
                     text: 'Company email'),
                 const SizedBox(height: 10.0),
-                 CustomTextField(
+                CustomTextField(
                     controller: _bioController,
                     hintText: 'company@gmail.com',
                     icon: Icons.work,
                     text: 'Company Description'),
                 const SizedBox(height: 10.0),
-                 CustomTextField(
+                CustomTextField(
                     controller: _bioController,
                     hintText: 'company.com',
                     icon: Icons.work,
                     text: 'Company Website'),
                 const SizedBox(height: 10.0),
-                //email
-                const SizedBox(height: 10.0),
-                //gender
-                Row(
-                  children: [
-                    Icon(
-                      Icons.attach_money_rounded,
-                      size: 32.0,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      width: 12.0,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.green.shade100,
-                        // border: Border.all(color: kprimaryColor, width: 2),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 10.0),
-                          Text(
-                            'Company Type',
-                            style: kTextPopR14.copyWith(color: Colors.black54),
-                          ),
-                          SizedBox(width: 10.0),
-                          SizedBox(
-                            height: 50,
-                            width: 200,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemCount: type.length,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        type.forEach((types) =>
-                                            types.isSelected = false);
-                                        type[index].isSelected = true;
-                                        ngoType = type[index].name;
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.only(right: 9),
-                                      child: Chip(
-                                        label: Text(
-                                          type[index].name,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: !type[index].isSelected
-                                                  ? Colors.green
-                                                  : Colors.white),
-                                        ),
-                                        backgroundColor: !type[index].isSelected
-                                            ? Colors.white
-                                            : Colors.green,
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          SizedBox(width: 10.0),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
 
-                
                 SizedBox(height: 10.0),
+                
+                const SizedBox(height: 10.0),
 
-                 CustomTextField(
+                CustomTextField(
                     controller: _bioController,
                     hintText: 'Address',
                     icon: Icons.location_on_rounded,
                     text: 'Company Location'),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: TextField(
-                          controller: _cityController,
-                          keyboardType: TextInputType.name,
-                          decoration: InputDecoration(
-                            hintText: "City",
-                            hintStyle: kTextPopR14,
-                            filled: true,
-                            fillColor: Colors.green.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                          textInputAction: TextInputAction.next,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                          maxLength: 6,
-                          controller: _zipcodeController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            counterText: '',
-                            hintText: "Zip",
-                            hintStyle: kTextPopR14,
-                            filled: true,
-                            fillColor: Colors.green.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (value!.length != 6) {
-                              return 'Zip code must be 6 digits long';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
+                const SizedBox(height: 10.0),
+
+                CSCPicker(
+                  dropdownDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: kbgColor,
+                    border: Border.all(color: kbgColor, width: 2),
                   ),
+                  disabledDropdownDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: kbgColor,
+                      border: Border.all(color: kbgColor, width: 1)),
+                  layout: Layout.vertical,
+                  onCountryChanged: (country) {},
+                  onStateChanged: (state) {},
+                  onCityChanged: (city) {},
                 ),
-                TextField(
-                  controller: _stateController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "State",
-                    hintStyle: kTextPopR14,
-                    icon: Icon(
-                      Icons.location_on_rounded,
-                      color: Colors.transparent,
-                    ),
-                    filled: true,
-                    fillColor: Colors.green.shade100,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
+
+               
                 const SizedBox(height: 10),
                 Divider(),
                 const SizedBox(height: 10),
@@ -411,7 +289,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           // border: Border.all(color: kprimaryColor, width: 2),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        
                       ),
                       Row(
                         children: [
@@ -436,7 +313,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                                 Icons.calendar_today_rounded,
                               ),
                               filled: true,
-                              fillColor: Colors.green.shade100,
+                              fillColor: kbgColor,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
@@ -477,56 +354,55 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           ),
                         ],
                       ),
+                      // Container(
+                      //   padding: const EdgeInsets.all(10),
+                      //   width: double.infinity,
+                      //   height: 50.0,
+                      //   decoration: BoxDecoration(
+                      //     color: kbgColor,
+                      //     borderRadius: BorderRadius.circular(10.0),
+                      //   ),
+                      //   child: DropdownButton(
+                      //     icon: Icon(Icons.arrow_drop_down_rounded),
+                      //     hint: Row(
+                      //       children: [
+                      //         const SizedBox(width: 10.0),
+                      //         Icon(
+                      //           Icons.interests_rounded,
+                      //           color: kprimaryColor,
+                      //         ),
+                      //         const SizedBox(width: 10.0),
+                      //         const Text('Select a category'),
+                      //       ],
+                      //     ),
+                      //     value: _selectedIntrest,
+                      //     items: ['Cleaning', 'Child Care', 'Women Empowerment']
+                      //         .map((cat) {
+                      //       return DropdownMenuItem(
+                      //         value: cat,
+                      //         child: Text(cat),
+                      //         onTap: () {
+                      //           setState(() {
+                      //             category = cat;
+                      //           });
+                      //         },
+                      //       );
+                      //     }).toList(),
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         _selectedIntrest = value!;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
+
                       const SizedBox(height: 10.0),
                       Container(
                         padding: const EdgeInsets.all(10),
                         width: double.infinity,
                         height: 50.0,
                         decoration: BoxDecoration(
-                          color: Colors.green.shade100,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: DropdownButton(
-                          icon: Icon(Icons.arrow_drop_down_rounded),
-                          hint: Row(
-                            children: [
-                              const SizedBox(width: 10.0),
-                              Icon(
-                                Icons.interests_rounded,
-                                color: kprimaryColor,
-                              ),
-                              const SizedBox(width: 10.0),
-                              const Text('Select a category'),
-                            ],
-                          ),
-                          value: _selectedInterest,
-                          items: ['Cleaning', 'Child Care', 'Women Empowerment']
-                              .map((cat) {
-                            return DropdownMenuItem(
-                              value: cat,
-                              child: Text(cat),
-                              onTap: () {
-                                setState(() {
-                                  category = cat;
-                                });
-                              },
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedInterest = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      
-                      const SizedBox(height: 10.0),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        width: double.infinity,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: Colors.green.shade100,
+                          color: kbgColor,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: DropdownButton(
@@ -542,9 +418,8 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                               const Text('Company Size'),
                             ],
                           ),
-                          value: _selectedInterest,
-                          items: ['1-10', '10-50', '50-100','100+']
-                              .map((cat) {
+                          value: _selectedIntrest,
+                          items: ['1-10', '10-50', '50-100', '100+'].map((cat) {
                             return DropdownMenuItem(
                               value: cat,
                               child: Text(cat),
@@ -557,7 +432,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedInterest = value!;
+                              _selectedIntrest = value!;
                             });
                           },
                         ),
@@ -569,7 +444,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary:
-                                  Colors.green, //background color of button
+                                 kprimaryColor, //background color of button
                               shape: RoundedRectangleBorder(
                                   //to set border radius to button
                                   borderRadius: BorderRadius.circular(10)),

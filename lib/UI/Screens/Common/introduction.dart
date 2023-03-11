@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:khoj/UI/Screens/Common/Login/IntroPage1.dart';
-import 'package:khoj/UI/Screens/Common/Login/IntroPage2.dart';
-import 'package:khoj/UI/Screens/Common/Login/IntroPage3.dart';
+import 'package:khoj/UI/Screens/Common/IntroPage1.dart';
+import 'package:khoj/UI/Screens/Common/IntroPage2.dart';
+import 'package:khoj/UI/Screens/Common/IntroPage3.dart';
 import 'package:khoj/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

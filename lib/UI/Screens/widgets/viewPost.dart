@@ -246,6 +246,38 @@ class _IntershipDetailsState extends State<IntershipDetails> {
               SizedBox(
                 height: 10.0,
               ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: kpostColor,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Skills Required',
+                      style: kTextPopM16,
+                    ),
+                    Text(
+                      '- Flutter \n- Java, Python, or C++\n- Excellent problem-solving skills',
+                      style: kTextPopR14,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

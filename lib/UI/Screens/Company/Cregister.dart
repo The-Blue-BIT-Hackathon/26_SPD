@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:khoj/UI/Screens/widgets/textfield.dart';
 import 'package:khoj/constants.dart';
+import 'package:khoj/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class CompanyRegister extends StatefulWidget {
@@ -59,6 +60,11 @@ class _CompanyRegisterState extends State<CompanyRegister> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    Provider.of<Auth>(context).checkUser();
+    super.didChangeDependencies();
+  }
   // @override
   // void dispose() {
   //   _nameController.dispose();

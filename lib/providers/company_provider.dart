@@ -1,0 +1,69 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:khoj/models/company.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class CompanyProvider extends ChangeNotifier {
+
+  Future registerCompany(Company cmy) async {
+    try {
+      final uri = Uri.parse(
+          "https://khoj-5415b-default-rtdb.firebaseio.com/Company.json");
+      final res = await http.post(
+        uri,
+        body: json.encode({
+          'Name': cmy.Cname,
+          "PhoneNo": cmy.Cphone,
+          "UID": cmy.cid,
+          "Email": cmy.Cemail,
+          "Website": cmy.website,
+          "Company_Size": cmy.company_size,
+          "Address": cmy.address,
+          "DateOfEst": cmy.dateofest,
+          "City": cmy.city,
+          "Linkedin": cmy.linkedin,
+          "State": cmy.state,
+          "Description": cmy.desc,
+        }),
+      );
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setBool('Profile', true);
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
+  Future getCompany(String id) async {
+    final uri = Uri.parse(
+        "https://shopify-84a7c-default-rtdb.firebaseio.com/Users/$id.json");
+    try {
+      final res = await http.get(uri);
+      final resData = json.decode(res.body) as Map<String, dynamic>;
+      Company? cmy;
+      resData.forEach((key, value) {
+        cmy = Company(
+          Cname: value['Name'],
+          Cphone: value['PhoneNo'],
+          Cemail: value['Email'],
+          website: value['Website'],
+          city: value['City'],
+          dateofest: value['DateOfEst'],
+          state: value['State'],
+          linkedin: value['Linkedin'],
+          address: value['Address'],
+          company_size: value['Company_Size'],
+          cid: value['UID'],
+          desc: value['Description'],
+        );
+      });
+      notifyListeners();
+      return cmy;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

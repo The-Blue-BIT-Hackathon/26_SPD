@@ -10,6 +10,7 @@ class Company {
   final String address;
   final String desc;
   final String company_size;
+  final String cid;
 
   Company({
     required this.Cname,
@@ -23,5 +24,6 @@ class Company {
     required this.address,
     required this.desc,
     required this.company_size,
+    required this.cid,
   });
 }

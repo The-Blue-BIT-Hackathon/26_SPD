@@ -11,6 +11,7 @@ class Users {
   final String linkedin;
   final File resume;
   final File profile;
+  final String id;
 
   Users({
     required this.name,
@@ -23,5 +24,6 @@ class Users {
     required this.linkedin,
     required this.resume,
     required this.profile,
+    required this.id,
   });
 }

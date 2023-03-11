@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -84,30 +83,28 @@ class Auth extends ChangeNotifier {
 
   Future<bool> checkUser() async {
     try {
-      var user = true;
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('Users');
-      await users.doc(_auth.currentUser?.uid).get().then(
-            (datasnapshot) => {
-              if (!datasnapshot.exists) {user = false}
-            },
-          );
-      if (!user) {
-        CollectionReference ngo = FirebaseFirestore.instance.collection('Ngo');
-        await ngo.doc(_auth.currentUser?.uid).get().then(
-              (datasnapshot) => {
-                if (!datasnapshot.exists) {user = false} else {user = true}
-              },
-            );
-        if (user) {
-          _isUser = 'NGO';
+      final useruri = Uri.parse(
+          "https://shopify-84a7c-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
+      final res = await http.get(useruri);
+      if(res.body.isNotEmpty)
+        {
+          _isUser = 'JobSeeker';
           _profileCreated = true;
+          return true;
         }
-      } else {
-        _isUser = 'Individual';
-        _profileCreated = true;
-      }
-      return user;
+      else
+        {
+          final cmpuri = Uri.parse(
+              "https://shopify-84a7c-default-rtdb.firebaseio.com/Company/${_auth.currentUser!.uid}.json");
+          final rescmp = await http.get(cmpuri);
+          if(rescmp.body.isNotEmpty)
+            {
+              _isUser = 'JobPoster';
+              _profileCreated = true;
+              return true;
+            }
+        }
+      return false;
     } catch (e) {
       rethrow;
     }
@@ -118,77 +115,6 @@ class Auth extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('UserType', user);
     prefs.setBool("Profile", false);
-  }
-
-  Future registerUser(Users user) async {
-    try {
-      var storage = FirebaseStorage.instance;
-      TaskSnapshot taskSnapshot = await storage
-          .ref()
-          .child('Profile/${_auth.currentUser!.uid}')
-          .putFile(user.profile);
-      TaskSnapshot taskSnapshot2 = await storage
-          .ref()
-          .child('Resume/${_auth.currentUser!.uid}')
-          .putFile(user.resume);
-
-      final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-      final String downloadUrl2 = await taskSnapshot2.ref.getDownloadURL();
-      final uri = Uri.parse(
-          "https://khoj-5415b-default-rtdb.firebaseio.com/Users.json");
-      final res = await http.post(
-        uri,
-        body: json.encode({
-          'Name': user.name,
-          "PhoneNo": user.phone,
-          "UID": _auth.currentUser!.uid,
-          "Email": user.email,
-          "Domain": user.domain,
-          "Resume": downloadUrl2,
-          "College": user.cllg,
-          "DateOfGraduation": user.yearofgrad,
-          "Github": user.github,
-          "Linkedin": user.linkedin,
-          "ProfilePic": downloadUrl,
-        }),
-      );
-      final prefs = await SharedPreferences.getInstance();
-      _profileCreated = true;
-      prefs.setBool('Profile', _profileCreated);
-      notifyListeners();
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future registerCompany(Company cmy) async {
-    try {
-      final uri = Uri.parse(
-          "https://khoj-5415b-default-rtdb.firebaseio.com/Company.json");
-      final res = await http.post(
-        uri,
-        body: json.encode({
-          'Name': cmy.Cname,
-          "PhoneNo": cmy.Cphone,
-          "UID": _auth.currentUser!.uid,
-          "Email": cmy.Cemail,
-          "Website": cmy.website,
-          "Company_Size": cmy.company_size,
-          "Address": cmy.address,
-          "DateOfEst": cmy.dateofest,
-          "City": cmy.city,
-          "Linkedin": cmy.linkedin,
-          "State": cmy.state,
-          "Description": cmy.desc,
-        }),
-      );
-      final prefs = await SharedPreferences.getInstance();
-      _profileCreated = true;
-      prefs.setBool('Profile', _profileCreated);
-      notifyListeners();
-    } catch (e) {
-      rethrow;
-    }
   }
 
   @override

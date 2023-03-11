@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:khoj/UI/Screens/Company/Cregister.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../providers/auth_provider.dart';
+import '../User/Ubottombar.dart';
+import '../User/Uregister.dart';
+import 'choose.dart';
 
 class OtpScreen extends StatefulWidget {
   static var routeName = "/otp-screen";
@@ -23,42 +29,42 @@ class _OtpScreenState extends State<OtpScreen> {
     super.dispose();
   }
 
-  // Future _verifyOtp(BuildContext ctx) async {
-  //   var authProvider = Provider.of<Auth>(ctx, listen: false);
-  //   if (otp.length == 6) {
-  //     var isValid = await authProvider.verifyOtp(otp).catchError((e) {
-  //       print("Failure");
-  //     });
-  //     if (isValid) {
-  //       var user = await authProvider.checkUser();
-  //       if (authProvider.isUser.toString().isEmpty) {
-  //         Navigator.of(ctx).pushReplacementNamed(Choose.routeName);
-  //       } else if (authProvider.isUser.toString() == "Individual") {
-  //         if (authProvider.isProfile) {
-  //           Navigator.of(ctx).pushReplacementNamed(UserBottomBar.routeName);
-  //         } else {
-  //           Navigator.of(ctx).pushReplacementNamed(UserRegister.routeName);
-  //         }
-  //       } else {
-  //         if (authProvider.isProfile) {
-  //           Navigator.of(ctx).pushReplacementNamed(NgoBottomBar.routeName);
-  //         } else {
-  //           Navigator.of(ctx).pushReplacementNamed(NgoRegister.routeName);
-  //         }
-  //       }
-  //     } else {
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //       print("Failure");
-  //     }
-  //   } else {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //     print("Failure");
-  //   }
-  // }
+  Future _verifyOtp(BuildContext ctx) async {
+    var authProvider = Provider.of<Auth>(ctx, listen: false);
+    if (otp.length == 6) {
+      var isValid = await authProvider.verifyOtp(otp).catchError((e) {
+        print("Failure");
+      });
+      if (isValid) {
+        var user = await authProvider.checkUser();
+        if (authProvider.isUser.toString().isEmpty) {
+          Navigator.of(ctx).pushReplacementNamed(Choose.routeName);
+        } else if (authProvider.isUser.toString() == "Individual") {
+          if (authProvider.isProfile) {
+            Navigator.of(ctx).pushReplacementNamed(UserBottomBar.routeName);
+          } else {
+            Navigator.of(ctx).pushReplacementNamed(UserRegister.routeName);
+          }
+        } else {
+          if (authProvider.isProfile) {
+            // Navigator.of(ctx).pushReplacementNamed(NgoBottomBar.routeName);
+          } else {
+            Navigator.of(ctx).pushReplacementNamed(CompanyRegister.routeName);
+          }
+        }
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        print("Failure");
+      }
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      print("Failure");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +157,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  // _verifyOtp(context);
+                                  _verifyOtp(context);
                                 },
                                 style: ButtonStyle(
                                   foregroundColor:

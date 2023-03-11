@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:khoj/UI/Screens/Common/otp.dart';
 import 'package:khoj/constants.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../../../providers/auth_provider.dart';
 
 class LogIn extends StatefulWidget {
   LogIn({Key? key}) : super(key: key);
@@ -22,23 +25,19 @@ class _LogInState extends State<LogIn> {
     _phoneController.text = "";
   }
 
-  // Future _sendOtp(BuildContext ctx) async {
-  //   var isValid = false;
-  //   isLoading = true;
-  //   if (phoneNo.length == 13) {
-  //     await Provider.of<Auth>(ctx, listen: false)
-  //         .authenticate(phoneNo)
-  //         .catchError((e) {
-  //       print("Failure");
-  //     }).then((value) => Navigator.of(context).pushNamed(OtpScreen.routeName));
-  //   } else {
-  //     print("Failure");
-  //   }
-
-  //   if (isValid) {
-  //     Navigator.of(ctx).pushNamed(OtpScreen.routeName);
-  //   }
-  // }
+  Future _sendOtp(BuildContext ctx) async {
+    var isValid = false;
+    isLoading = true;
+    if (phoneNo.length == 13) {
+      await Provider.of<Auth>(ctx, listen: false)
+          .authenticate(phoneNo)
+          .catchError((e) {
+        print("Failure");
+      }).then((value) => Navigator.of(context).pushNamed(OtpScreen.routeName));
+    } else {
+      print("Failure");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +85,7 @@ class _LogInState extends State<LogIn> {
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => _sendOtp(context),
                         style: ElevatedButton.styleFrom(
                             fixedSize: const Size(300, 50),
                             shape: RoundedRectangleBorder(

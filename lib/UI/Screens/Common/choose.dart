@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:khoj/UI/Screens/Company/Cregister.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../providers/auth_provider.dart';
+import '../User/Uregister.dart';
 
 class Choose extends StatelessWidget {
   static var routeName = "/chooseScreen";
   const Choose({super.key});
 
-  // void chooseUser(String user, BuildContext context) {
-  //   Provider.of<Auth>(context, listen: false).chooseUserType(user);
-  //   if (user == "NGO") {
-  //     Navigator.of(context).pushReplacementNamed(NgoRegister.routeName);
-  //   } else {
-  //     Navigator.of(context).pushReplacementNamed(UserRegister.routeName);
-  //   }
-  // }
+  void chooseUser(String user, BuildContext context) {
+    Provider.of<Auth>(context, listen: false).chooseUserType(user);
+    if (user == "JobPoster") {
+      Navigator.of(context).pushReplacementNamed(CompanyRegister.routeName);
+    } else {
+      Navigator.of(context).pushReplacementNamed(UserRegister.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,7 @@ class Choose extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // chooseUser("Individual", context);
+                      chooseUser("JobSeeker", context);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10.0),
@@ -104,7 +107,7 @@ class Choose extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // chooseUser("NGO", context);
+                      chooseUser("JobPoster", context);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10.0),

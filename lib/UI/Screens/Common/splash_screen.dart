@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/Common/choose.dart';
 import 'package:khoj/UI/Screens/Common/login.dart';
@@ -8,6 +7,8 @@ import 'package:khoj/UI/Screens/User/Uregister.dart';
 import 'package:khoj/UI/Screens/widgets/SizeConfig.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../../../providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static var routeName = "/splash";
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
           print(authProvider.isUser);
           if (authProvider.isUser.toString().isEmpty) {
             Navigator.of(context).pushReplacementNamed(Choose.routeName);
-          } else if (authProvider.isUser.toString() == "Individual") {
+          } else if (authProvider.isUser.toString() == "JobSeeker") {
             if (authProvider.isProfile) {
               Navigator.of(context).pushReplacementNamed(UserBottomBar.routeName);
             } else {

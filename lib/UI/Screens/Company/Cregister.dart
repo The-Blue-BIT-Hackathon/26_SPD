@@ -8,7 +8,7 @@ import 'package:khoj/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class CompanyRegister extends StatefulWidget {
-  static var routeName = '/ngo-register';
+  static var routeName = '/company-register';
 
   const CompanyRegister({super.key});
 

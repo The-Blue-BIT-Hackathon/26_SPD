@@ -35,7 +35,7 @@ class _ChatScreenOpenState extends State<ChatScreenOpen> {
                       child: Container(
                         height: 70.0,
                         width: 70.0,
-                        color:Colors.red,
+                        color: Colors.red,
                         child: Image.asset('assets/images/ngo.png'),
                       ),
                     ),
@@ -43,8 +43,7 @@ class _ChatScreenOpenState extends State<ChatScreenOpen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Google',
-                            style: kTextPopM16),
+                        Text('Google', style: kTextPopM16),
                         Text(
                           'Online',
                           style: kTextPopR12,
@@ -96,7 +95,8 @@ class _ChatScreenOpenState extends State<ChatScreenOpen> {
                             }
                           },
                         ),
-                        hintText: 'Message',hintStyle: kTextPopR14,
+                        hintText: 'Message',
+                        hintStyle: kTextPopR14,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide:

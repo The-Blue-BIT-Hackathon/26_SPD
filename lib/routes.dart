@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/Common/login.dart';
 import 'package:khoj/UI/Screens/Common/otp.dart';
 import 'package:khoj/UI/Screens/Common/splash_screen.dart';
+import 'package:khoj/UI/Screens/Company/Cbottombar.dart';
 import 'package:khoj/UI/Screens/Company/Cregister.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/UchatScreen.dart';
@@ -30,10 +31,6 @@ var approutes = <String, WidgetBuilder>{
   UChatScreen.routeName: (context) => UChatScreen(),
   UActivityScreen.routeName: (context) => UActivityScreen(),
 
-  // //Ngo Routes
-  // NgoBottomBar.routeName: (context) => NgoBottomBar(),
-  // NHomeScreen.routeName: (context) => NHomeScreen(),
-  // NgoChatScreen.routeName: (context) => NgoChatScreen(),
-  // NgoAddpost.routeName: (context) => NgoAddpost(),
-  // NgoActivityScreen.routeName: (context) => NgoActivityScreen(),
+  // Company Routes
+  CompanyBottomBar.routeName: (context) => CompanyBottomBar(),
 };

@@ -53,6 +53,7 @@ dependencies:
   intl: ^0.17.0
   csc_picker: ^0.2.7
   file_picker: ^5.2.5
+  pluto_menu_bar: ^3.0.1
 
 dev_dependencies:
   flutter_test:

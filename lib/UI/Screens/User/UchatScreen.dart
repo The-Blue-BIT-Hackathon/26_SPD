@@ -32,7 +32,79 @@ class UChatScreen extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => ChatScreenOpen()),
                     );
                   },
-                  name: 'Smile Foundation',
+                  name: 'Google',
+                  message: 'Hii I would like to ..',
+                  isOnline: true,
+                  imageUrl: 'assets/images/ngo.png',
+                ),
+                ChatListItem(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreenOpen()),
+                    );
+                  },
+                  name: 'Google',
+                  message: 'Hii I would like to ..',
+                  isOnline: true,
+                  imageUrl: 'assets/images/ngo.png',
+                ),
+                ChatListItem(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreenOpen()),
+                    );
+                  },
+                  name: 'Google',
+                  message: 'Hii I would like to ..',
+                  isOnline: true,
+                  imageUrl: 'assets/images/ngo.png',
+                ),
+                ChatListItem(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreenOpen()),
+                    );
+                  },
+                  name: 'Google',
+                  message: 'Hii I would like to ..',
+                  isOnline: true,
+                  imageUrl: 'assets/images/ngo.png',
+                ),
+                ChatListItem(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreenOpen()),
+                    );
+                  },
+                  name: 'Google',
+                  message: 'Hii I would like to ..',
+                  isOnline: true,
+                  imageUrl: 'assets/images/ngo.png',
+                ),
+                ChatListItem(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreenOpen()),
+                    );
+                  },
+                  name: 'Google',
+                  message: 'Hii I would like to ..',
+                  isOnline: true,
+                  imageUrl: 'assets/images/ngo.png',
+                ),
+                ChatListItem(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreenOpen()),
+                    );
+                  },
+                  name: 'Google',
                   message: 'Hii I would like to ..',
                   isOnline: true,
                   imageUrl: 'assets/images/ngo.png',

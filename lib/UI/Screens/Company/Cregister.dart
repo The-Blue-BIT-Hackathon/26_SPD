@@ -182,57 +182,65 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                     controller: _nameController,
                     hintText: 'Dip Hire',
                     icon: Icons.abc,
-                    text: 'Your Full Name'),
+                    text: 'Company Name'),
                 const SizedBox(height: 10.0),
-                TextFormField(
-                  maxLength: 10,
-                  controller: _phoneController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    prefixText: '+91 ',
-                    prefixStyle: kTextPopB14,
-                    hintText: "Contact number",
-                    hintStyle: kTextPopR14,
-                    icon: Icon(Icons.phone),
-                    filled: true,
-                    fillColor: Colors.green.shade100,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your phone number';
-                    }
-                    final phoneRegex = RegExp(r'^\+?\d{9,15}$');
-                    if (!phoneRegex.hasMatch(value)) {
-                      return 'Please enter a valid phone number';
-                    }
-                    return null;
-                  },
-                ),
+                CustomTextField(
+                    controller: _phoneController,
+                    hintText: '+91987654321',
+                    icon: Icons.abc,
+                    text: 'Contact number'),
+                const SizedBox(height: 10.0),
+                // TextFormField(
+                //   maxLength: 10,
+                //   controller: _phoneController,
+                //   keyboardType: TextInputType.number,
+                //   decoration: InputDecoration(
+                //     counterText: '',
+                //     prefixText: '+91 ',
+                //     prefixStyle: kTextPopB14,
+                //     hintText: "Contact number",
+                //     hintStyle: kTextPopR14,
+                //     icon: Icon(Icons.phone),
+                //     filled: true,
+                //     fillColor: Colors.green.shade100,
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //       borderSide: BorderSide.none,
+                //     ),
+                //   ),
+                //   textInputAction: TextInputAction.next,
+                //   validator: (value) {
+                //     if (value!.isEmpty) {
+                //       return 'Please enter your phone number';
+                //     }
+                //     final phoneRegex = RegExp(r'^\+?\d{9,15}$');
+                //     if (!phoneRegex.hasMatch(value)) {
+                //       return 'Please enter a valid phone number';
+                //     }
+                //     return null;
+                //   },
+                // ),
 
                 const SizedBox(height: 10.0),
+                 CustomTextField(
+                    controller: _emailController,
+                    hintText: 'company@gmail.com',
+                    icon: Icons.work,
+                    text: 'Company email'),
+                const SizedBox(height: 10.0),
+                 CustomTextField(
+                    controller: _bioController,
+                    hintText: 'company@gmail.com',
+                    icon: Icons.work,
+                    text: 'Company Description'),
+                const SizedBox(height: 10.0),
+                 CustomTextField(
+                    controller: _bioController,
+                    hintText: 'company.com',
+                    icon: Icons.work,
+                    text: 'Company Website'),
+                const SizedBox(height: 10.0),
                 //email
-                TextField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "Email id",
-                    hintStyle: kTextPopR14,
-                    icon: Icon(Icons.email_rounded),
-                    filled: true,
-                    fillColor: Colors.green.shade100,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
                 const SizedBox(height: 10.0),
                 //gender
                 Row(
@@ -255,7 +263,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                         children: [
                           SizedBox(width: 10.0),
                           Text(
-                            'Ngo Type',
+                            'Company Type',
                             style: kTextPopR14.copyWith(color: Colors.black54),
                           ),
                           SizedBox(width: 10.0),
@@ -302,66 +310,14 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                   ],
                 ),
 
-                SizedBox(width: 20.0),
-                // Row(
-                //   children: [
-                //     Icon(
-                //       Icons.location_on_rounded,
-                //       size: 32.0,
-                //       color: Colors.grey,
-                //     ),
-                //     SizedBox(
-                //       width: 12.0,
-                //     ),
-                //     Container(
-                //       decoration: BoxDecoration(
-                //         color: Colors.green.shade100,
-                //         // border: Border.all(color: kprimaryColor, width: 2),
-                //         borderRadius: BorderRadius.circular(10.0),
-                //       ),
-                //       child: Row(
-                //         children: [
-                //           SizedBox(width: 10.0),
-                //           Text(
-                //             'Address',
-                //             style: kTextPopR14.copyWith(
-                //                 color: Colors.black54),
-                //           ),
-                //           SizedBox(width: 10.0),
-                //           SizedBox(width: 10.0),
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
-
-                // Row(
-                //   children: [
-                //     const SizedBox(width: 10),
-                //     Text(
-                //       "Location Details",
-                //       textAlign: TextAlign.left,
-                //       style: kTextPopB14,
-                //     ),
-                //   ],
-                // ),
+                
                 SizedBox(height: 10.0),
-                TextField(
-                  // controller: _nameController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Address",
-                    hintStyle: kTextPopR14,
-                    icon: Icon(Icons.location_on_rounded),
-                    filled: true,
-                    fillColor: Colors.green.shade100,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
+
+                 CustomTextField(
+                    controller: _bioController,
+                    hintText: 'Address',
+                    icon: Icons.location_on_rounded,
+                    text: 'Company Location'),
                 Container(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 40.0),

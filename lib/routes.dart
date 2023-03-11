@@ -4,7 +4,7 @@ import 'package:khoj/UI/Screens/User/Uregister.dart';
 
 var approutes = <String, WidgetBuilder>{
   //Inital Route
-  '/': (context) => UserRegister(),
+  '/': (context) => CompanyRegister(),
 
   // //Login Routes
   // LogIn.routeName: (context) => LogIn(),

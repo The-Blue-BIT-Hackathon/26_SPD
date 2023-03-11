@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/Common/login.dart';
 import 'package:khoj/UI/Screens/Common/otp.dart';
+import 'package:khoj/UI/Screens/Company/Cbottombar.dart';
 import 'package:khoj/UI/Screens/Company/Cregister.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/Uregister.dart';
 
 var approutes = <String, WidgetBuilder>{
   //Inital Route
-  '/': (context) => const UserBottomBar(),
+  // '/': (context) => const UserBottomBar(),
+  '/': (context) => const CompanyBottomBar(),
 
   // //Login Routes
   // LogIn.routeName: (context) => LogIn(),

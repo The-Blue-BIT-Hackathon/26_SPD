@@ -52,6 +52,7 @@ dependencies:
   image_picker: ^0.8.6+4
   intl: ^0.17.0
   csc_picker: ^0.2.7
+  pluto_menu_bar: ^3.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +14,7 @@ class UserAppdrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(0xfff1BB273),
+              color: Color(0xfff1976D2),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +91,7 @@ class NgoAppdrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(0xfff1BB273),
+              color: Color(0xfff1976D2),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 Color kprimaryColor = Color(0xfff1976D2);
 Color ksecondaryColor = Color(0xfffD0E3F5);
 Color kpostColor = Color(0xfffC7E3FF);
+Color kbgColor = Color(0xfffE9F2FB);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 //  Theme Style

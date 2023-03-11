@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
             hintStyle: kTextPopR14,
             icon: icon != null ? Icon(icon) : null,
             filled: true,
-            fillColor: Colors.green.shade100,
+            fillColor: kbgColor,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,

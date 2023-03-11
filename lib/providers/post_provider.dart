@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/post.dart';
 
 class PostProvider extends ChangeNotifier {
   List<Post> posts = [];
+  final _auth = FirebaseAuth.instance;
 
   Future fetchPost() async {
     final uri =
@@ -34,6 +36,44 @@ class PostProvider extends ChangeNotifier {
         );
       });
       posts = loadedPost;
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future applyPost(String pid) async {
+    final uri = Uri.parse(
+        "https://khoj-5415b-default-rtdb.firebaseio.com/Posts/$pid.json");
+    try {
+      final res = await http.get(uri);
+      final extractedData = json.decode(res.body);
+      List<dynamic> puid = [];
+      if (extractedData['PUID'] != null) {
+        puid = extractedData['PUID'];
+      }
+      puid.add(_auth.currentUser!.uid);
+      final res2 = await http.patch(uri,
+          body: json.encode({
+            'PUID': puid,
+          }));
+
+      final uri2 = Uri.parse(
+          "https://khoj-5415b-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
+      puid.clear();
+      final res3 = await http.get(uri2);
+      final extractedData1 = json.decode(res3.body) as Map<String, dynamic>;
+      extractedData1.forEach((key, value) {
+        if(value['PUID']!=null)
+          {
+            puid = value['PUID'];
+          }
+      });
+      puid.add(pid);
+      final res4 = await http.patch(uri2,
+          body: json.encode({
+            'PUID': puid,
+          }));
       notifyListeners();
     } catch (e) {
       rethrow;
@@ -88,6 +128,7 @@ class PostProvider extends ChangeNotifier {
           'Location': posts[0].location,
           'Responsibilities': posts[0].responsibility,
           'Skills': posts[0].skills,
+          'PUID': [],
         }),
       );
       final resData = json.decode(res.body);

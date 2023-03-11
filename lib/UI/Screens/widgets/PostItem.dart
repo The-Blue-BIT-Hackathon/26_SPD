@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:khoj/UI/Screens/widgets/BottomSheet.dart';
 import 'package:khoj/UI/Screens/widgets/viewPost.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
+import '../../../providers/post_provider.dart';
 
 class PostItem extends StatefulWidget {
   final String title;
@@ -50,7 +52,12 @@ class _PostState extends State<PostItem> {
     });
   }
 
-  void toggleApply() {
+  Future toggleApply() async{
+    await Provider.of<PostProvider>(context, listen: false)
+        .applyPost(widget.pid)
+        .catchError((e) {
+      print(e);
+    });
     setState(() {
       _isApply = !_isApply;
     });

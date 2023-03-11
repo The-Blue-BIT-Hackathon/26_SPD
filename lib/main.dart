@@ -2,21 +2,29 @@
 // import 'package:aikyam/providers/ngo_provider.dart';
 // import 'package:aikyam/providers/user_provider.dart';
 // import 'package:aikyam/routes.dart';
-// import 'package:aikyam/views/constants.dart';
+import 'package:khoj/routes.dart';
+
+import 'constants.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        theme: khojTheme,
+        routes: approutes,
+    );
+
     // return MultiProvider(
     //   providers: [
     //     ChangeNotifierProvider(

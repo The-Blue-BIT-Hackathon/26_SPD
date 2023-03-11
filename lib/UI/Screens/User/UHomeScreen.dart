@@ -75,7 +75,6 @@ class _UHomeScreenState extends State<UHomeScreen> {
                             pid: postsData.posts[inx].id,
                             cid: postsData.posts[inx].cid,
                           ),
-                          const Divider(),
                         ],
                       ),
                       itemCount: postsData.posts.length,

@@ -256,14 +256,15 @@ class _PostState extends State<PostItem> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => IntershipDetails()));
+                              builder: (context) => InternshipDetails(
+                                pid: widget.pid,
+                              ),
+                            ));
                       },
-                      child: Text("view")),
+                      child: const Text("view")),
                 ),
 
-                SizedBox(
-                  width: 10.0,
-                ),
+                const SizedBox(width: 10.0),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
@@ -272,7 +273,7 @@ class _PostState extends State<PostItem> {
                       });
                     },
                     child: Text(
-                      _isApply ? 'Apply' : 'Withdrow',
+                      _isApply ? 'Apply' : 'Applied',
                     ),
                   ),
                 ),

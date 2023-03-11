@@ -40,9 +40,37 @@ class PostProvider extends ChangeNotifier {
     }
   }
 
-  Future createPost() async {
+  Future fetchPostById(String pid) async {
     final uri = Uri.parse(
-        "https://khoj-5415b-default-rtdb.firebaseio.com/Posts.json");
+        "https://khoj-5415b-default-rtdb.firebaseio.com/Posts/$pid.json");
+    try {
+      final res = await http.get(uri);
+      final extractedData = json.decode(res.body);
+      Post p = Post(
+        startDate: extractedData['StartDate'],
+        id: pid,
+        cid: extractedData['CID'],
+        cname: extractedData['Cname'],
+        salary: extractedData['Salary'],
+        title: extractedData['Title'],
+        city: extractedData['City'],
+        state: extractedData['State'],
+        duration: extractedData['Duration'],
+        location: extractedData['Location'],
+        workinghrs: extractedData['NoOfHours'],
+        responsibility: extractedData['Responsibilities'],
+        skills: extractedData['Skills'],
+      );
+      notifyListeners();
+      return p;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future createPost() async {
+    final uri =
+        Uri.parse("https://khoj-5415b-default-rtdb.firebaseio.com/Posts.json");
     try {
       final res = await http.post(
         uri,

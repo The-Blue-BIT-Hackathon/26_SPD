@@ -185,16 +185,20 @@ class _CompanyRegisterState extends State<CompanyRegister> {
 
                 // name
                 CustomTextField(
-                    controller: _nameController,
-                    hintText: 'Dip Hire',
-                    icon: Icons.abc,
-                    text: 'Company Name'),
+                  controller: _nameController,
+                  hintText: 'Dip Hire',
+                  icon: Icons.abc,
+                  text: 'Company Name',
+                  Ttype: TextInputType.name,
+                ),
                 const SizedBox(height: 10.0),
                 CustomTextField(
-                    controller: _phoneController,
-                    hintText: '+91987654321',
-                    icon: Icons.abc,
-                    text: 'Contact number'),
+                  controller: _phoneController,
+                  hintText: '+91987654321',
+                  icon: Icons.abc,
+                  text: 'Contact number',
+                  Ttype: TextInputType.phone,
+                ),
                 const SizedBox(height: 10.0),
                 // TextFormField(
                 //   maxLength: 10,
@@ -229,33 +233,41 @@ class _CompanyRegisterState extends State<CompanyRegister> {
 
                 const SizedBox(height: 10.0),
                 CustomTextField(
-                    controller: _emailController,
-                    hintText: 'company@gmail.com',
-                    icon: Icons.work,
-                    text: 'Company email'),
+                  controller: _emailController,
+                  hintText: 'company@gmail.com',
+                  icon: Icons.work,
+                  text: 'Company email',
+                  Ttype: TextInputType.emailAddress,
+                ),
                 const SizedBox(height: 10.0),
                 CustomTextField(
-                    controller: _bioController,
-                    hintText: 'company@gmail.com',
-                    icon: Icons.work,
-                    text: 'Company Description'),
+                  controller: _bioController,
+                  hintText: 'abc',
+                  icon: Icons.work,
+                  text: 'Company Description',
+                  Ttype: TextInputType.text,
+                ),
                 const SizedBox(height: 10.0),
                 CustomTextField(
-                    controller: _bioController,
-                    hintText: 'company.com',
-                    icon: Icons.work,
-                    text: 'Company Website'),
+                  controller: _bioController,
+                  hintText: 'company.com',
+                  icon: Icons.work,
+                  text: 'Company Website',
+                  Ttype: TextInputType.url,
+                ),
                 const SizedBox(height: 10.0),
 
                 SizedBox(height: 10.0),
-                
+
                 const SizedBox(height: 10.0),
 
                 CustomTextField(
-                    controller: _bioController,
-                    hintText: 'Address',
-                    icon: Icons.location_on_rounded,
-                    text: 'Company Location'),
+                  controller: _bioController,
+                  hintText: 'Address',
+                  icon: Icons.location_on_rounded,
+                  text: 'Company Location',
+                  Ttype: TextInputType.text,
+                ),
                 const SizedBox(height: 10.0),
 
                 CSCPicker(
@@ -274,7 +286,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                   onCityChanged: (city) {},
                 ),
 
-               
                 const SizedBox(height: 10),
                 Divider(),
                 const SizedBox(height: 10),
@@ -444,7 +455,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary:
-                                 kprimaryColor, //background color of button
+                                  kprimaryColor, //background color of button
                               shape: RoundedRectangleBorder(
                                   //to set border radius to button
                                   borderRadius: BorderRadius.circular(10)),

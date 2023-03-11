@@ -22,7 +22,7 @@ class UserProvider extends ChangeNotifier {
       final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       final String downloadUrl2 = await taskSnapshot2.ref.getDownloadURL();
       final uri = Uri.parse(
-          "https://khoj-5415b-default-rtdb.firebaseio.com/Users.json");
+          "https://khoj-5415b-default-rtdb.firebaseio.com/Users/${user.id}.json");
       final res = await http.post(
         uri,
         body: json.encode({

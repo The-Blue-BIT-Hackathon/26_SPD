@@ -7,13 +7,15 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     required this.icon,
-    required this.text
+    required this.text,
+    required this.Ttype,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String? hintText;
   final IconData? icon;
   final String? text;
+  final TextInputType Ttype;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +27,13 @@ class CustomTextField extends StatelessWidget {
               text ?? text!,
               style: kTextPopR14,
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
-        SizedBox(
-          height: 8.0,
-        ),
-        TextField(
+        const SizedBox(height: 8.0),
+        TextFormField(
           controller: controller,
-          keyboardType: TextInputType.name,
+          keyboardType: Ttype,
           decoration: InputDecoration(
             hintText: hintText ?? "Enter text here",
             hintStyle: kTextPopR14,
@@ -45,6 +45,14 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           ),
+          validator: Ttype != TextInputType.url
+              ? (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter Details!';
+                  }
+                  return null;
+                }
+              : null,
           textInputAction: TextInputAction.next,
         ),
       ],

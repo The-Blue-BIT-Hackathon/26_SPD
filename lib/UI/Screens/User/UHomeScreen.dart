@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/widgets/AppBarHome.dart';
+import 'package:khoj/UI/Screens/widgets/posts.dart';
 
 class UHomeScreen extends StatelessWidget {
   static const routeName = '/home_screen';
@@ -30,7 +31,7 @@ class UHomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              // Post(),
+              Post()
               // Post(),
               // Post(),
               // Post(),

@@ -18,8 +18,9 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  String _selectedLocation = '';
 
-    bool isRemote = false;
+  bool isRemote = false;
   bool isOnsite = false;
   bool isFilter = false;
   RangeValues _currentRangeValues = const RangeValues(0, 0);
@@ -298,42 +299,39 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                   ],
                 ),
-                 Row(
-                   children: [
-                     Text(
-                        "Job Type",
-                        textAlign: TextAlign.left,
-                        style: kTextPopR14,
-                      ),
-                      Spacer(),
-                   ],
-                 ),
-                  const SizedBox(height: 10),
-                  Row(children: [
-                    Checkbox(
-                        value: isRemote,
-                        onChanged: (value) {
-                          setState(() {
-                            isRemote = value!;
-                            isFilter = true;
-                          });
-                        }),
+
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
                     Text(
-                      "Remote",
+                      'Job Type',
                       style: kTextPopR14,
                     ),
-                  ]),
-                  Row(children: [
-                    Checkbox(
-                        value: isOnsite,
-                        onChanged: (value) {
-                          setState(() {
-                            isOnsite = value!;
-                            isFilter = true;
-                          });
-                        }),
-                    Text("Onsite", style: kTextPopR14),
-                  ]),
+                    RadioListTile(
+                      activeColor: kprimaryColor,
+                      title: Text('Remote'),
+                      value: 'remote',
+                      groupValue: _selectedLocation,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedLocation = value!;
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      activeColor: kprimaryColor,
+                      title: Text('Onsite'),
+                      value: 'onsite',
+                      groupValue: _selectedLocation,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedLocation = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
                 Container(
                   padding: const EdgeInsets.all(10),
                   width: double.infinity,

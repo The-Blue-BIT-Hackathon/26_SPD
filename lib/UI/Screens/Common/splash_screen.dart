@@ -29,22 +29,26 @@ class _SplashScreenState extends State<SplashScreen> {
   Future loadScreen() async {
     var authProvider = Provider.of<Auth>(context, listen: false);
     // await authProvider.signOut();
-    Future.delayed(const Duration(seconds: 2), () async{
+    Future.delayed(const Duration(seconds: 2), () async {
       await authProvider.autoLogin().then((_) {
         if (authProvider.isAuth) {
           if (authProvider.isUser.toString().isEmpty) {
             Navigator.of(context).pushReplacementNamed(Choose.routeName);
           } else if (authProvider.isUser.toString() == "JobSeeker") {
             if (authProvider.isProfile) {
-              Navigator.of(context).pushReplacementNamed(UserBottomBar.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(UserBottomBar.routeName);
             } else {
-              Navigator.of(context).pushReplacementNamed(UserRegister.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(UserRegister.routeName);
             }
           } else {
             if (authProvider.isProfile) {
-               Navigator.of(context).pushReplacementNamed(CompanyBottomBar.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(CompanyBottomBar.routeName);
             } else {
-              Navigator.of(context).pushReplacementNamed(CompanyRegister.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(CompanyRegister.routeName);
             }
           }
         } else {
@@ -59,48 +63,15 @@ class _SplashScreenState extends State<SplashScreen> {
     // You have to call it on your starting screen
     SizeConfig().init(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 35.0, vertical: 45.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 380.0,
-                  child: Lottie.asset('assets/animation/animation2.json'),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Center(
-                  child: Text(
-                    "Lorem ipsum dolor sit amet, et massing elit. consectetur ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Center(
-                  child: Text(
-                    "adipiscing elit. Ut et massing elit. Ut et massi.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 19,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+          child: Center(
+            child: Container(
+              height: 380.0,
+              child: Image(
+                image: AssetImage('assets/images/K.gif'),
+              ),
             ),
           ),
         ),

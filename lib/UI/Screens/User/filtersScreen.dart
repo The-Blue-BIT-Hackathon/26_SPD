@@ -1,10 +1,7 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:khoj/UI/Screens/User/UHomeScreen.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/constants.dart';
-
-import '../../../models/filter.dart';
 
 class FiltersScreen extends StatefulWidget {
   static const routeName = '/filter_screen';
@@ -186,7 +183,7 @@ class FiltersScreenState extends State<FiltersScreen> {
                       _stateController.text = state.toString();
                     },
                     onCityChanged: (city) {
-                      _cityController.text = city.toString();
+                      _stateController.text = state.toString();
                     },
                   ),
                   Center(

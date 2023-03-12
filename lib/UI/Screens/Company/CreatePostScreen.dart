@@ -29,7 +29,7 @@ class _CreatePostState extends State<CreatePost> {
   int _counter = 1;
   var _hours;
 
-  List<String> _tags = [];
+  List<dynamic> _tags = [];
 
   final _cnameController = TextEditingController();
   final _salaryController = TextEditingController();
@@ -87,6 +87,10 @@ class _CreatePostState extends State<CreatePost> {
   }
 
   Future createPost() async {
+    List<dynamic> resp = [];
+    _controllers.forEach((element) {
+      resp.add(element.text);
+    });
     var ls = "", hs = "";
     if (_currentRangeValues.start.toString().length == 6) {
       ls = '${_currentRangeValues.start.toString().substring(0, 1)}K';
@@ -118,8 +122,8 @@ class _CreatePostState extends State<CreatePost> {
       duration: duration,
       location: location,
       workinghrs: _hours,
-      responsibility: [],
-      skills: [],
+      responsibility: resp,
+      skills: _tags,
       cname: cname,
     );
     await Provider.of<PostProvider>(context, listen: false).createPost(p);
@@ -237,7 +241,7 @@ class _CreatePostState extends State<CreatePost> {
                           borderSide: BorderSide.none,
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.add),
+                          icon: const Icon(Icons.add),
                           onPressed: () {
                             setState(() {
                               _tags.add(_skillsController.text);
@@ -249,23 +253,6 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                   ],
                 ),
-                // const SizedBox(height: 10),
-                // TextField(
-                //   controller: _skillsController,
-                //   keyboardType: TextInputType.name,
-                //   decoration: InputDecoration(
-                //     hintText: "Skills required",
-                //     hintStyle: kTextPopR14,
-                //     icon: const Icon(Icons.code),
-                //     filled: true,
-                //     fillColor: kbgColor,
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.circular(10),
-                //       borderSide: BorderSide.none,
-                //     ),
-                //   ),
-                //   textInputAction: TextInputAction.next,
-                // ),
                 const SizedBox(width: 10),
                 Column(
                   children: [
@@ -273,7 +260,7 @@ class _CreatePostState extends State<CreatePost> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: TextField(
-                          controller: _responsibilityController,
+                          controller: _controllers[i],
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             hintText: "Job Requirement",
@@ -282,7 +269,7 @@ class _CreatePostState extends State<CreatePost> {
                             filled: true,
                             fillColor: kbgColor,
                             suffixIcon: IconButton(
-                              icon: Icon(Icons.add),
+                              icon: const Icon(Icons.add),
                               onPressed: () {
                                 setState(() {
                                   _addTextField();
@@ -310,8 +297,8 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                     RadioListTile(
                       activeColor: kprimaryColor,
-                      title: Text('Remote'),
-                      value: 'remote',
+                      title: const Text('Remote'),
+                      value: 'Remote',
                       groupValue: _selectedLocation,
                       onChanged: (value) {
                         setState(() {
@@ -321,8 +308,8 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                     RadioListTile(
                       activeColor: kprimaryColor,
-                      title: Text('Onsite'),
-                      value: 'onsite',
+                      title: const Text('Onsite'),
+                      value: 'Onsite',
                       groupValue: _selectedLocation,
                       onChanged: (value) {
                         setState(() {
@@ -404,37 +391,6 @@ class _CreatePostState extends State<CreatePost> {
                         } else {}
                       }),
                 ),
-
-                const SizedBox(height: 10.0),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width: double.infinity,
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    color: kbgColor,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: DropdownButton(
-                    hint: const Text('Working Hours'),
-                    value: _hours,
-                    items: ['2-3', '3-5', '5-7', '8-12'].map((size) {
-                      return DropdownMenuItem(
-                        value: size,
-                        child: Text(size),
-                        onTap: () {
-                          setState(() {
-                            _hours = size;
-                          });
-                        },
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _workinghrsController.text = value.toString();
-                      });
-                    },
-                  ),
-                ),
                 const SizedBox(height: 10.0),
 
                 CSCPicker(
@@ -449,11 +405,16 @@ class _CreatePostState extends State<CreatePost> {
                       border: Border.all(color: kbgColor, width: 1)),
                   layout: Layout.vertical,
                   onCountryChanged: (country) {},
-                  onStateChanged: (state) {},
-                  onCityChanged: (city) {},
+                  onStateChanged: (state) {
+                    _stateController.text = state.toString();
+                  },
+                  onCityChanged: (city) {
+                    _cityController.text = city.toString();
+                  },
                 ),
                 const SizedBox(
                   width: 10.0,
+                  height: 20.0,
                 ),
                 ElevatedButton(
                     onPressed: createPost, child: const Text('Create Post')),

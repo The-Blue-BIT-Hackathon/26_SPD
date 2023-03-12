@@ -79,7 +79,7 @@ class Auth extends ChangeNotifier {
   Future<bool> checkUser() async {
     try {
       final useruri = Uri.parse(
-          "https://shopify-84a7c-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
+          "https://khoj-5415b-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
       final res = await http.get(useruri);
       final resData = json.decode(res.body);
       if(resData['error'] == null)
@@ -91,7 +91,7 @@ class Auth extends ChangeNotifier {
       else
         {
           final cmpuri = Uri.parse(
-              "https://shopify-84a7c-default-rtdb.firebaseio.com/Company/${_auth.currentUser!.uid}.json");
+              "https://khoj-5415b-default-rtdb.firebaseio.com/Company/${_auth.currentUser!.uid}.json");
           final rescmp = await http.get(cmpuri);
           final resDataC = json.decode(rescmp.body);
           print(resDataC);

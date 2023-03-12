@@ -121,7 +121,7 @@ class _CreatePostState extends State<CreatePost> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 80,
-          flexibleSpace: const RoundAppBar(title: 'Create'),
+          flexibleSpace: const RoundAppBar(title: 'Create Post'),
         ),
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 10.0),
@@ -130,12 +130,29 @@ class _CreatePostState extends State<CreatePost> {
               children: [
                 const SizedBox(height: 10.0),
                 TextField(
+                  controller: _cnameController,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    hintText: "Company Name",
+                    hintStyle: kTextPopR14,
+                    icon: const Icon(Icons.domain),
+                    filled: true,
+                    fillColor: kbgColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  textInputAction: TextInputAction.next,
+                ),
+                const SizedBox(height: 10.0),
+                TextField(
                   controller: _titleController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     hintText: "Job Title",
                     hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.person),
+                    icon: const Icon(Icons.work),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -152,7 +169,7 @@ class _CreatePostState extends State<CreatePost> {
                   decoration: InputDecoration(
                     hintText: "Salary Range",
                     hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.person),
+                    icon: const Icon(Icons.currency_rupee_rounded),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -202,7 +219,7 @@ class _CreatePostState extends State<CreatePost> {
                   decoration: InputDecoration(
                     hintText: "Skills required",
                     hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.person),
+                    icon: const Icon(Icons.code),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -224,7 +241,7 @@ class _CreatePostState extends State<CreatePost> {
                           decoration: InputDecoration(
                             hintText: "Job Requirement",
                             hintStyle: kTextPopR14,
-                            icon: const Icon(Icons.person),
+                            icon: const Icon(Icons.work_outline_rounded),
                             filled: true,
                             fillColor: kbgColor,
                             border: OutlineInputBorder(
@@ -247,52 +264,22 @@ class _CreatePostState extends State<CreatePost> {
                     ),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width: double.infinity,
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    color: kbgColor,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: DropdownButton(
-                    hint: const Text('Working Hours'),
-                    value: _hours,
-                    items: ['2-3', '3-5', '5-7', '8-12'].map((size) {
-                      return DropdownMenuItem(
-                        value: size,
-                        child: Text(size),
-                        onTap: () {
-                          setState(() {
-                            _hours = size;
-                          });
-                        },
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _workinghrsController.text = value.toString();
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                TextField(
-                  controller: _workinghrsController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Working Hours",
-                    hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.person),
-                    filled: true,
-                    fillColor: kbgColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
+                // TextField(
+                //   controller: _workinghrsController,
+                //   keyboardType: TextInputType.name,
+                //   decoration: InputDecoration(
+                //     hintText: "Working Hours",
+                //     hintStyle: kTextPopR14,
+                //     icon: const Icon(Icons.person),
+                //     filled: true,
+                //     fillColor: kbgColor,
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //       borderSide: BorderSide.none,
+                //     ),
+                //   ),
+                //   textInputAction: TextInputAction.next,
+                // ),
                 const SizedBox(height: 10.0),
                 SizedBox(
                   width: double.infinity,
@@ -337,7 +324,39 @@ class _CreatePostState extends State<CreatePost> {
                         } else {}
                       }),
                 ),
+
                 const SizedBox(height: 10.0),
+                                Container(
+                  padding: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: kbgColor,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: DropdownButton(
+                    hint: const Text('Working Hours'),
+                    value: _hours,
+                    items: ['2-3', '3-5', '5-7', '8-12'].map((size) {
+                      return DropdownMenuItem(
+                        value: size,
+                        child: Text(size),
+                        onTap: () {
+                          setState(() {
+                            _hours = size;
+                          });
+                        },
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _workinghrsController.text = value.toString();
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+
                 CSCPicker(
                   dropdownDecoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),

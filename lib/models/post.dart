@@ -2,7 +2,8 @@ class Post {
   String id;
   final String cid;
   final String cname;
-  final String salary;
+  final String lsalary;
+  final String hsalary;
   final String title;
   final String city;
   final String state;
@@ -19,7 +20,8 @@ class Post {
     required this.startDate,
     required this.id,
     required this.cid,
-    required this.salary,
+    required this.lsalary,
+    required this.hsalary,
     required this.title,
     required this.city,
     required this.state,

@@ -68,6 +68,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
     _websiteController.text = "";
     _datecontroller.text = "";
     _linkedinController.text = "";
+    _countryController.text = "";
     type.add(Type("Profit", false));
     type.add(Type("Non-Profit", false));
     ngoReg.add(Registered("Yes", false));

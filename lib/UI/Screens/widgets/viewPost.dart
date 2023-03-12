@@ -149,9 +149,7 @@ class _InternshipDetailsState extends State<InternshipDetails> {
                                         style: kTextPopR14,
                                       ),
                                       Text(
-                                        post?.salary == null
-                                            ? ""
-                                            : post!.salary,
+                                        post!.lsalary ?? "",
                                         style: kTextPopB14,
                                       ),
                                     ],

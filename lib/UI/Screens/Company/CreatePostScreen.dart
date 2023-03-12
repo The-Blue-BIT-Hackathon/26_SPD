@@ -81,18 +81,18 @@ class _CreatePostState extends State<CreatePost> {
 
   Future createPost() async {
     var ls = "", hs = "";
-    if (_currentRangeValues.start.toString().length == 4) {
+    if (_currentRangeValues.start.toString().length == 6) {
       ls = '${_currentRangeValues.start.toString().substring(0, 1)}K';
-    } else if (_currentRangeValues.start.toString().length == 5) {
+    } else if (_currentRangeValues.start.toString().length == 7) {
       ls = '${_currentRangeValues.start.toString().substring(0, 2)}K';
-    } else if (_currentRangeValues.start.toString().length == 6) {
+    } else if (_currentRangeValues.start.toString().length == 8) {
       ls = '${_currentRangeValues.start.toString().substring(0, 1)}lac';
     }
-    if (_currentRangeValues.end.toString().length == 4) {
+    if (_currentRangeValues.end.toString().length == 6) {
       hs = '${_currentRangeValues.end.toString().substring(0, 1)}K';
-    } else if (_currentRangeValues.end.toString().length == 5) {
+    } else if (_currentRangeValues.end.toString().length == 7) {
       hs = '${_currentRangeValues.end.toString().substring(0, 2)}K';
-    } else if (_currentRangeValues.end.toString().length == 6) {
+    } else if (_currentRangeValues.end.toString().length == 8) {
       hs = '${_currentRangeValues.end.toString().substring(0, 1)}lac';
     }
     final auth = FirebaseAuth.instance;

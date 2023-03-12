@@ -15,7 +15,7 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class FiltersScreenState extends State<FiltersScreen> {
-  RangeValues _currentRangeValues = const RangeValues(1000, 5000);
+  RangeValues _currentRangeValues = const RangeValues(0, 0);
   bool isRemote = false;
   bool isOnsite = false;
   bool isFilter = false;
@@ -45,28 +45,21 @@ class FiltersScreenState extends State<FiltersScreen> {
   }
 
   void _applyFilter() {
-    if (_currentRangeValues.start.toString().length == 4) {
+    print(_currentRangeValues.end.toString());
+    if (_currentRangeValues.start.toString().length == 6) {
       ls = '${_currentRangeValues.start.toString().substring(0, 1)}K';
-    } else if (_currentRangeValues.start.toString().length == 5) {
+    } else if (_currentRangeValues.start.toString().length == 7) {
       ls = '${_currentRangeValues.start.toString().substring(0, 2)}K';
-    } else if (_currentRangeValues.start.toString().length == 6) {
+    } else if (_currentRangeValues.start.toString().length == 8) {
       ls = '${_currentRangeValues.start.toString().substring(0, 1)}lac';
     }
-    if (_currentRangeValues.end.toString().length == 4) {
+    if (_currentRangeValues.end.toString().length == 6) {
       hs = '${_currentRangeValues.end.toString().substring(0, 1)}K';
-    } else if (_currentRangeValues.end.toString().length == 5) {
+    } else if (_currentRangeValues.end.toString().length == 7) {
       hs = '${_currentRangeValues.end.toString().substring(0, 2)}K';
-    } else if (_currentRangeValues.end.toString().length == 6) {
+    } else if (_currentRangeValues.end.toString().length == 8) {
       hs = '${_currentRangeValues.end.toString().substring(0, 1)}lac';
     }
-    Filter filter = Filter(
-      remote: isRemote,
-      onsite: isOnsite,
-      lSalary: _currentRangeValues.start.toString(),
-      hSalary: _currentRangeValues.end.toString(),
-      city: city,
-      state: state,
-    );
     Navigator.of(context).pushNamed(UserBottomBar.routeName,
         arguments: [isRemote, isOnsite, ls, hs, city, state]);
   }

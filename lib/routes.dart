@@ -16,10 +16,7 @@ import 'UI/Screens/User/UHomeScreen.dart';
 
 var approutes = <String, WidgetBuilder>{
   //Initial Route
-  // '/': (context) => const SplashScreen(),
-  // '/': (context) => const UserBottomBar(),
-  '/': (context) => const CompanyBottomBar(),
-  // '/': (context) =>  TestHome(),
+  '/': (context) => const SplashScreen(),
 
   //Login Routes
   LogIn.routeName: (context) => LogIn(),
@@ -32,7 +29,6 @@ var approutes = <String, WidgetBuilder>{
 
   //User Routes
   UserBottomBar.routeName: (context) => UserBottomBar(),
-  UHomeScreen.routeName: (context) => UHomeScreen(),
   UChatScreen.routeName: (context) => UChatScreen(),
   UActivityScreen.routeName: (context) => UActivityScreen(),
   FiltersScreen.routeName: (context) => FiltersScreen(),

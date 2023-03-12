@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:khoj/models/filter.dart';
 import '../models/post.dart';
+import 'package:collection/collection.dart';
 
 class PostProvider extends ChangeNotifier {
   List<Post> posts = [];
@@ -56,27 +57,40 @@ class PostProvider extends ChangeNotifier {
   Future fetchPostFilters(Filter filter) async {
     List<Post> loadedPost = posts;
     if (filter.remote) {
-      loadedPost
-          .add(posts.firstWhere((element) => element.location == "Remote"));
+      var p = posts.firstWhereOrNull((element) => element.location == "Remote");
+      if (p != null) {
+        loadedPost.add(p);
+      }
     }
     if (filter.onsite) {
-      loadedPost
-          .add(posts.firstWhere((element) => element.location == "Onsite"));
+      var p = posts.firstWhereOrNull((element) => element.location == "Onsite");
+      if (p != null) {
+        loadedPost.add(p);
+      }
     }
     if (filter.state.isNotEmpty) {
       if (filter.city.isNotEmpty) {
-        loadedPost.add(posts.firstWhere((element) =>
-            (element.state == filter.state && element.city == filter.city)));
+        var p = posts.firstWhereOrNull((element) =>
+        (element.state == filter.state && element.city == filter.city));
+        if (p != null) {
+          loadedPost.add(p);
+        }
       } else {
-        loadedPost
-            .add(posts.firstWhere((element) => element.state == filter.state));
+        var p = posts.firstWhereOrNull((element) => element.state == filter.state);
+        if (p!=null) {
+          loadedPost.add(p);
+        }
       }
     }
     if (filter.lSalary.isNotEmpty && filter.hSalary.isNotEmpty) {
-      loadedPost.add(posts.firstWhere((element) =>
-          (element.lsalary == filter.lSalary &&
-              element.hsalary == filter.lSalary)));
+      var p = posts.firstWhereOrNull((element) =>
+      (element.lsalary == filter.lSalary &&
+          element.hsalary == filter.lSalary));
+      if (p != null) {
+        loadedPost.add(p);
+      }
     }
+    posts.clear();
     posts = loadedPost;
   }
 

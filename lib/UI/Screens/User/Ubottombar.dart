@@ -6,6 +6,7 @@ import 'package:khoj/UI/Screens/User/UchatScreen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../constants.dart';
+import '../../../models/filter.dart';
 
 class UserBottomBar extends StatefulWidget {
   static var routeName = '/bottom_nav';
@@ -17,8 +18,33 @@ class UserBottomBar extends StatefulWidget {
 }
 
 class _UserBottomBarState extends State<UserBottomBar> {
+  Filter? filter;
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
+
+  @override
+  void didChangeDependencies() {
+    if (ModalRoute.of(context)?.settings.arguments != null) {
+      var fi = ModalRoute.of(context)?.settings.arguments as List<dynamic>;
+      filter = Filter(
+        remote: fi[0],
+        onsite: fi[1],
+        lSalary: fi[2],
+        hSalary: fi[3],
+        city: fi[4],
+        state: fi[5],
+      );
+    }
+    filter ??= Filter(
+          remote: false,
+          onsite: false,
+          lSalary: "",
+          hSalary: "",
+          city: "",
+          state: "",
+        );
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +53,7 @@ class _UserBottomBarState extends State<UserBottomBar> {
       body: PersistentTabView(
         context,
         controller: _controller,
-        screens: _buildScreens(),
+        screens: _buildScreens(filter!),
         items: _navBarsItems(),
         navBarStyle: NavBarStyle.style9,
       ),
@@ -35,9 +61,11 @@ class _UserBottomBarState extends State<UserBottomBar> {
   }
 }
 
-List<Widget> _buildScreens() {
+List<Widget> _buildScreens(Filter f) {
   return [
-    UHomeScreen(),
+    UHomeScreen(
+      filter: f,
+    ),
     const UChatScreen(),
     const UActivityScreen(),
     const UActivityScreen()

@@ -230,7 +230,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                       const SizedBox(height: 10.0),
 
                       const SizedBox(height: 10.0),
-
                       CustomTextField(
                         controller: _addressController,
                         hintText: 'Address',
@@ -271,6 +270,9 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 10),
+                Divider(),
+                const SizedBox(height: 10),
                 Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 22.0, vertical: 0.0),

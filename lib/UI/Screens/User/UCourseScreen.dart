@@ -13,7 +13,7 @@ class UCourseScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: MediaQuery.of(context).size.height * 0.08,
+          toolbarHeight: 80,
           flexibleSpace: RoundAppBar(
             title: 'Course',
           ),

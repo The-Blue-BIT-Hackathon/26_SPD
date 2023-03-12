@@ -15,7 +15,7 @@ class CompanyChatScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: 85,
+          toolbarHeight: 80,
           flexibleSpace: RoundAppBar(
             title: 'Chat',
           ),

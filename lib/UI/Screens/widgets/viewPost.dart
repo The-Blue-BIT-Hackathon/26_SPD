@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:khoj/constants.dart';
@@ -149,7 +148,7 @@ class _InternshipDetailsState extends State<InternshipDetails> {
                                         style: kTextPopR14,
                                       ),
                                       Text(
-                                        post!.lsalary ?? "",
+                                        post!.lsalary,
                                         style: kTextPopB14,
                                       ),
                                     ],

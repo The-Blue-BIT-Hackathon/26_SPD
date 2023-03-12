@@ -29,8 +29,7 @@ class _UHomeScreenState extends State<UHomeScreen> {
 
   @override
   void didChangeDependencies() {
-    if(ModalRoute.of(context)?.settings.arguments != null)
-    {
+    if (ModalRoute.of(context)?.settings.arguments != null) {
       var fi = ModalRoute.of(context)?.settings.arguments;
       print(fi);
     }
@@ -62,7 +61,7 @@ class _UHomeScreenState extends State<UHomeScreen> {
           brightness: Brightness.dark,
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: 85,
+          toolbarHeight: 80,
           flexibleSpace: const HomeAppBar(),
           leading: IconButton(
             onPressed: () {
@@ -89,7 +88,8 @@ class _UHomeScreenState extends State<UHomeScreen> {
               children: [
                 const SizedBox(height: 10.0),
                 GestureDetector(
-                  onTap: () => Navigator.of(context).pushNamed(FiltersScreen.routeName),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(FiltersScreen.routeName),
                   child: Chip(
                     label: const Text('Filters'),
                     backgroundColor: kbgColor,

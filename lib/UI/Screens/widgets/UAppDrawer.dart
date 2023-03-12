@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../providers/auth_provider.dart';
 import '../Common/login.dart';
 
 class UserAppdrawer extends StatelessWidget {
@@ -69,11 +70,10 @@ class UserAppdrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('LogOut'),
-            // onTap: () {
-            //   Provider.of<Auth>(context, listen: false).signOut();
-            //   Navigator.of(context)
-            //       .push(MaterialPageRoute(builder: (context) => LogIn()));
-            // },
+            onTap: () {
+              Provider.of<Auth>(context, listen: false).signOut();
+              Navigator.of(context, rootNavigator: true).pushReplacementNamed(LogIn.routeName);
+            },
           ),
         ],
       ),
@@ -81,8 +81,8 @@ class UserAppdrawer extends StatelessWidget {
   }
 }
 
-class NgoAppdrawer extends StatelessWidget {
-  const NgoAppdrawer({super.key});
+class CAppdrawer extends StatelessWidget {
+  const CAppdrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,10 @@ class NgoAppdrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('LogOut'),
-            onTap: () {},
+            onTap: () {
+              Provider.of<Auth>(context, listen: false).signOut();
+              Navigator.of(context, rootNavigator: true).pushReplacementNamed(LogIn.routeName);
+            },
           ),
         ],
       ),

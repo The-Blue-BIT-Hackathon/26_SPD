@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:khoj/UI/Screens/User/filtersScreen.dart';
 import 'package:khoj/UI/Screens/widgets/AppBarHome.dart';
 import 'package:khoj/UI/Screens/widgets/PostItem.dart';
@@ -11,6 +12,9 @@ import '../widgets/UAppDrawer.dart';
 
 class UHomeScreen extends StatefulWidget {
   static const routeName = '/home_screen';
+  final Filter filter;
+
+  UHomeScreen({required this.filter});
 
   @override
   State<UHomeScreen> createState() => _UHomeScreenState();
@@ -29,15 +33,30 @@ class _UHomeScreenState extends State<UHomeScreen> {
 
   @override
   void didChangeDependencies() {
-    if (ModalRoute.of(context)?.settings.arguments != null) {
-      var fi = ModalRoute.of(context)?.settings.arguments;
-      print(fi);
-    }
     if (!isInit) {
-      _fetchPost();
+      if (widget.filter.state.isNotEmpty ||
+          widget.filter.city.isNotEmpty ||
+          widget.filter.remote ||
+          widget.filter.onsite ||
+          widget.filter.lSalary.isNotEmpty ||
+          widget.filter.hSalary.isNotEmpty) {
+        _fetchPostByFilter();
+      } else {
+        _fetchPost();
+      }
     }
     isInit = true;
     super.didChangeDependencies();
+  }
+
+  Future _fetchPostByFilter() async {
+    await Provider.of<PostProvider>(context, listen: false)
+        .fetchPostFilters(widget.filter)
+        .then((val) {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   Future _fetchPost() async {
@@ -48,7 +67,6 @@ class _UHomeScreenState extends State<UHomeScreen> {
         isLoading = false;
       });
     });
-    print(isLoading);
   }
 
   @override
@@ -74,54 +92,61 @@ class _UHomeScreenState extends State<UHomeScreen> {
           ),
         ),
         drawer: const UserAppdrawer(),
-        body: RefreshIndicator(
-          onRefresh: () {
-            setState(() {
-              isLoading = true;
-            });
-            return _fetchPost();
-          },
-          child: Column(
-            children: [
-              const SizedBox(height: 10.0),
-              GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context,FiltersScreen.routeName),
-                child: Chip(
-                  label: const Text('Filters'),
-                  backgroundColor: kbgColor,
-                  labelStyle: kTextPopM16,
-                  avatar: const Icon(Icons.filter_list_alt),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: double.infinity,
-                  child: ListView.builder(
-                    itemBuilder: (_, inx) => Column(
-                      children: [
-                        PostItem(
-                          title: postsData.posts[inx].title,
-                          companyName: postsData.posts[inx].cname,
-                          location: postsData.posts[inx].location,
-                          lsalary: postsData.posts[inx].lsalary,
-                          hsalary: postsData.posts[inx].hsalary,
-                          duration: postsData.posts[inx].duration,
-                          dailyhrs: postsData.posts[inx].workinghrs,
-                          startDate: postsData.posts[inx].startDate,
-                          applyStatus: postsData.posts[inx].applystatus,
-                          pid: postsData.posts[inx].id,
-                          cid: postsData.posts[inx].cid,
-                        ),
-                      ],
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : RefreshIndicator(
+                onRefresh: () {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  return _fetchPost();
+                },
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10.0),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context, rootNavigator: true)
+                          .pushNamed(FiltersScreen.routeName),
+                      child: Chip(
+                        label: const Text('Filters'),
+                        backgroundColor: kbgColor,
+                        labelStyle: kTextPopM16,
+                        avatar: const Icon(Icons.filter_list_alt),
+                      ),
                     ),
-                    itemCount: postsData.posts.length,
-                  ),
+                    Expanded(
+                      child: SizedBox(
+                        height: double.infinity,
+                        child: postsData.posts.isEmpty
+                            ? Container()
+                            : ListView.builder(
+                                itemBuilder: (_, inx) => Column(
+                                  children: [
+                                    PostItem(
+                                      title: postsData.posts[inx].title,
+                                      companyName: postsData.posts[inx].cname,
+                                      location: postsData.posts[inx].location,
+                                      lsalary: postsData.posts[inx].lsalary,
+                                      hsalary: postsData.posts[inx].hsalary,
+                                      duration: postsData.posts[inx].duration,
+                                      dailyhrs: postsData.posts[inx].workinghrs,
+                                      startDate: postsData.posts[inx].startDate,
+                                      applyStatus:
+                                          postsData.posts[inx].applystatus,
+                                      pid: postsData.posts[inx].id,
+                                      cid: postsData.posts[inx].cid,
+                                    ),
+                                  ],
+                                ),
+                                itemCount: postsData.posts.length,
+                              ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }

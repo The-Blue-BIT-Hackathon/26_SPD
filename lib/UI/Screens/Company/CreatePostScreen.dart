@@ -15,6 +15,12 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  RangeValues _currentRangeValues = const RangeValues(20000, 50000);
+
+  List<TextEditingController> _controllers = [];
+  int _counter = 1;
+  var _hours;
+
   final _cnamecontroller = TextEditingController();
   final _salarycontroller = TextEditingController();
   final _datecontroller = TextEditingController();
@@ -27,6 +33,27 @@ class _CreatePostState extends State<CreatePost> {
   final _workinghrsController = TextEditingController();
   final _responsibilityController = TextEditingController();
   final _skillsController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controllers.add(TextEditingController());
+  }
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void _addTextField() {
+    setState(() {
+      _counter++;
+      _controllers.add(TextEditingController());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,22 +72,6 @@ class _CreatePostState extends State<CreatePost> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                TextField(
-                  controller: _cnamecontroller,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Company Name",
-                    hintStyle: kTextPopR14,
-                    icon: Icon(Icons.person),
-                    filled: true,
-                    fillColor: kbgColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
                 const SizedBox(height: 10.0),
                 TextField(
                   controller: _titlecontroller,
@@ -81,9 +92,10 @@ class _CreatePostState extends State<CreatePost> {
                 const SizedBox(height: 10.0),
                 TextField(
                   controller: _salarycontroller,
-                  keyboardType: TextInputType.number,
+                  
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    hintText: "Salary",
+                    hintText: "Salary Range",
                     hintStyle: kTextPopR14,
                     icon: Icon(Icons.person),
                     filled: true,
@@ -95,6 +107,55 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   textInputAction: TextInputAction.next,
                 ),
+                const SizedBox(height: 10.0),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Center(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                        Text('0', style: kTextPopR12),
+                        Expanded(
+                          child: RangeSlider(
+                            values: _currentRangeValues,
+                            min: 0,
+                            max: 100000,
+                            divisions: 10,
+                            labels: RangeLabels(
+                              _currentRangeValues.start.round().toString(),
+                              _currentRangeValues.end.round().toString(),
+                            ),
+                            onChanged: (RangeValues values) {
+                              setState(() {
+                                _currentRangeValues = values;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          '100000',
+                          style: kTextPopR12,
+                        ),
+                      ])),
+                ),
+                SizedBox(width: 10),
+                // TextField(
+                //   controller: _salarycontroller,
+                //   keyboardType: TextInputType.number,
+                //   decoration: InputDecoration(
+                //     hintText: "Salary",
+                //     hintStyle: kTextPopR14,
+                //     icon: Icon(Icons.person),
+                //     filled: true,
+                //     fillColor: kbgColor,
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //       borderSide: BorderSide.none,
+                //     ),
+                //   ),
+                //   textInputAction: TextInputAction.next,
+                // ),
                 const SizedBox(height: 10.0),
                 TextField(
                   controller: _skillsController,
@@ -112,23 +173,71 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   textInputAction: TextInputAction.next,
                 ),
-                const SizedBox(height: 10.0),
-                TextField(
-                  maxLines: 5,
-                  controller: _responsibilityController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Responsibility",
-                    hintStyle: kTextPopR14,
-                    icon: Icon(Icons.person),
-                    filled: true,
-                    fillColor: kbgColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  children: [
+                    for (var i = 0; i < _counter; i++)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: TextField(
+                          controller: _responsibilityController,
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            hintText: "Job Requirement",
+                            hintStyle: kTextPopR14,
+                            icon: Icon(Icons.person),
+                            filled: true,
+                            fillColor: kbgColor,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                    SizedBox(height: 5.0),
+                    Row(
+                      children: [
+                        Spacer(),
+                        ElevatedButton(
+                          onPressed: _addTextField,
+                          child: Text('Add more'),
+                        ),
+                      ],
                     ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: kbgColor,
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  textInputAction: TextInputAction.next,
+                  child: DropdownButton(
+                    hint: const Text('Working Hours'),
+                    value: _hours,
+                    items: ['2-3', '3-5', '5-7', '8-12'].map((size) {
+                      return DropdownMenuItem(
+                        value: size,
+                        child: Text(size),
+                        onTap: () {
+                          setState(() {
+                            _hours = size;
+                          });
+                        },
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _workinghrsController.text = value.toString();
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(height: 10.0),
                 TextField(
@@ -207,6 +316,8 @@ class _CreatePostState extends State<CreatePost> {
                   onStateChanged: (state) {},
                   onCityChanged: (city) {},
                 ),
+                SizedBox(width: 10.0,),
+                ElevatedButton(onPressed: (){}, child: Text('Create Post')),
               ],
             ),
           ),

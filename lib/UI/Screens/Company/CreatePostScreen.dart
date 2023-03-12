@@ -304,7 +304,6 @@ class _CreatePostState extends State<CreatePost> {
                           textInputAction: TextInputAction.next,
                         ),
                       ),
-                    
                   ],
                 ),
                 // TextField(
@@ -419,7 +418,17 @@ class _CreatePostState extends State<CreatePost> {
                   width: 10.0,
                 ),
                 ElevatedButton(
-                    onPressed: () {}, child: const Text('Create Post')),
+                    onPressed: () {
+                      _dateController.clear();
+                      _titleController.clear();
+                      _durationController.clear();
+                      _cityController.clear();
+                      _stateController.clear();
+                      _workinghrsController.clear();
+                      _locationController.clear();
+                      _cnameController.clear();
+                    },
+                    child: const Text('Create Post')),
               ],
             ),
           ),

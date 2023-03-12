@@ -4,6 +4,7 @@ import 'package:khoj/UI/Screens/Common/otp.dart';
 import 'package:khoj/UI/Screens/Common/splash_screen.dart';
 import 'package:khoj/UI/Screens/Company/Cbottombar.dart';
 import 'package:khoj/UI/Screens/Company/Cregister.dart';
+import 'package:khoj/UI/Screens/User/TestHomeScreen.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/UchatScreen.dart';
 import 'package:khoj/UI/Screens/User/Uregister.dart';
@@ -15,7 +16,9 @@ import 'UI/Screens/User/UHomeScreen.dart';
 
 var approutes = <String, WidgetBuilder>{
   //Initial Route
-  '/': (context) => const SplashScreen(),
+  // '/': (context) => const SplashScreen(),
+  // '/': (context) => const UserBottomBar(),
+  '/': (context) =>  TestHome(),
 
   //Login Routes
   LogIn.routeName: (context) => LogIn(),
@@ -35,4 +38,7 @@ var approutes = <String, WidgetBuilder>{
 
   // Company Routes
   CompanyBottomBar.routeName: (context) => CompanyBottomBar(),
+
+  // Filters Route
+  FiltersScreen.routeName :(context) => FiltersScreen(),
 };

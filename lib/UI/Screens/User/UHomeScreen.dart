@@ -81,24 +81,22 @@ class _UHomeScreenState extends State<UHomeScreen> {
             });
             return _fetchPost();
           },
-          child: SizedBox(
-            height: 300,
-            width: 200,
-            child: Column(
-              children: [
-                const SizedBox(height: 10.0),
-                GestureDetector(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(FiltersScreen.routeName),
-                  child: Chip(
-                    label: const Text('Filters'),
-                    backgroundColor: kbgColor,
-                    labelStyle: kTextPopM16,
-                    avatar: const Icon(Icons.filter_list_alt),
-                  ),
+          child: Column(
+            children: [
+              const SizedBox(height: 10.0),
+              GestureDetector(
+                onTap: () =>
+                    Navigator.pushNamed(context,FiltersScreen.routeName),
+                child: Chip(
+                  label: const Text('Filters'),
+                  backgroundColor: kbgColor,
+                  labelStyle: kTextPopM16,
+                  avatar: const Icon(Icons.filter_list_alt),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(9.0),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: double.infinity,
                   child: ListView.builder(
                     itemBuilder: (_, inx) => Column(
                       children: [
@@ -120,8 +118,8 @@ class _UHomeScreenState extends State<UHomeScreen> {
                     itemCount: postsData.posts.length,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

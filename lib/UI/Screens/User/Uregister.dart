@@ -83,6 +83,7 @@ class _UserRegisterState extends State<UserRegister> {
           isLoading = false;
         });
       } else {
+        print("hello");
         await userProvider
             .registerUser(
           Users(

@@ -7,7 +7,6 @@ import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/Uregister.dart';
 import 'package:khoj/UI/Screens/widgets/SizeConfig.dart';
 import 'package:khoj/providers/auth_provider.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {

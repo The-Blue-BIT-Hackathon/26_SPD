@@ -55,6 +55,7 @@ class _OtpScreenState extends State<OtpScreen> {
       });
       if (isValid) {
         var user = await authProvider.checkUser();
+        print(user);
         if (authProvider.isUser.toString().isEmpty) {
           Navigator.of(ctx).pushReplacementNamed(Choose.routeName);
         } else if (authProvider.isUser.toString() == "JobSeeker") {

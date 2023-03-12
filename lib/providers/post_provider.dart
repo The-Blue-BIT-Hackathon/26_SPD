@@ -42,7 +42,7 @@ class PostProvider extends ChangeNotifier {
             location: postData['Location'],
             workinghrs: postData['NoOfHours'],
             responsibility: postData['Responsibilities'],
-            skills: postData['Skills'],
+            skills: [],
           ),
         );
       });

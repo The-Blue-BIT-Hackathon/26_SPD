@@ -82,6 +82,7 @@ class Auth extends ChangeNotifier {
           "https://khoj-5415b-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
       final res = await http.get(useruri);
       final resData = json.decode(res.body);
+      print(resData);
       if(resData['error'] == null)
         {
           _isUser = 'JobSeeker';
@@ -129,9 +130,7 @@ class Auth extends ChangeNotifier {
       return;
     }
     _token = prefs.getString('UID');
-    if (prefs.getString('UserType') != null) {
-      _isUser = prefs.getString('UserType')!;
-    }
+    _isUser = prefs.getString('UserType')!;
     _profileCreated = prefs.getBool('Profile')!;
     notifyListeners();
   }

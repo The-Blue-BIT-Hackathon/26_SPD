@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:khoj/UI/Screens/User/UActivityScreen.dart';
+import 'package:khoj/UI/Screens/User/UCourseScreen.dart';
 import 'package:khoj/UI/Screens/User/UHomeScreen.dart';
 import 'package:khoj/UI/Screens/User/UchatScreen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -36,13 +37,13 @@ class _UserBottomBarState extends State<UserBottomBar> {
       );
     }
     filter ??= Filter(
-          remote: false,
-          onsite: false,
-          lSalary: "",
-          hSalary: "",
-          city: "",
-          state: "",
-        );
+      remote: false,
+      onsite: false,
+      lSalary: "",
+      hSalary: "",
+      city: "",
+      state: "",
+    );
     super.didChangeDependencies();
   }
 
@@ -66,9 +67,9 @@ List<Widget> _buildScreens(Filter f) {
     UHomeScreen(
       filter: f,
     ),
-    const UChatScreen(),
+    // const UChatScreen(),
     const UActivityScreen(),
-    const UActivityScreen()
+    const UCourseScreen(),
   ];
 }
 
@@ -79,11 +80,11 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
         title: ("Home"),
         activeColorPrimary: kprimaryColor,
         inactiveColorPrimary: kprimaryColor),
-    PersistentBottomNavBarItem(
-      icon: Icon(FeatherIcons.messageSquare),
-      title: ("Chat"),
-      activeColorPrimary: kprimaryColor,
-    ),
+    // PersistentBottomNavBarItem(
+    //   icon: Icon(FeatherIcons.messageSquare),
+    //   title: ("Chat"),
+    //   activeColorPrimary: kprimaryColor,
+    // ),
     PersistentBottomNavBarItem(
         icon: Icon(FeatherIcons.activity),
         title: ("Activity"),

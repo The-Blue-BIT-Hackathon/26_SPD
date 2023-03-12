@@ -23,6 +23,7 @@ class _UserBottomBarState extends State<UserBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PersistentTabView(
         context,
         controller: _controller,

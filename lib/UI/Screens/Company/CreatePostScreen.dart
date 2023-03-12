@@ -22,6 +22,8 @@ class _CreatePostState extends State<CreatePost> {
   int _counter = 1;
   var _hours;
 
+  List<String> _tags = [];
+
   final _cnameController = TextEditingController();
   final _salaryController = TextEditingController();
   final _dateController = TextEditingController();
@@ -212,23 +214,65 @@ class _CreatePostState extends State<CreatePost> {
                       ])),
                 ),
                 const SizedBox(width: 10),
-                const SizedBox(height: 10.0),
-                TextField(
-                  controller: _skillsController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Skills required",
-                    hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.code),
-                    filled: true,
-                    fillColor: kbgColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
+                Column(
+                  children: [
+                    Wrap(
+                      children: _tags
+                          .map(
+                            (tag) => InputChip(
+                              backgroundColor: kbgColor,
+                              label: Text(tag),
+                              onDeleted: () {
+                                setState(() {
+                                  _tags.remove(tag);
+                                });
+                              },
+                            ),
+                          )
+                          .toList(),
                     ),
-                  ),
-                  textInputAction: TextInputAction.next,
+                    TextField(
+                      controller: _skillsController,
+                      decoration: InputDecoration(
+                        hintText: 'Enter skills',
+                        hintStyle: kTextPopR14,
+                        icon: const Icon(Icons.code),
+                        filled: true,
+                        fillColor: kbgColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () {
+                            setState(() {
+                              _tags.add(_skillsController.text);
+                              _skillsController.clear();
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+                // const SizedBox(height: 10),
+                // TextField(
+                //   controller: _skillsController,
+                //   keyboardType: TextInputType.name,
+                //   decoration: InputDecoration(
+                //     hintText: "Skills required",
+                //     hintStyle: kTextPopR14,
+                //     icon: const Icon(Icons.code),
+                //     filled: true,
+                //     fillColor: kbgColor,
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //       borderSide: BorderSide.none,
+                //     ),
+                //   ),
+                //   textInputAction: TextInputAction.next,
+                // ),
                 const SizedBox(width: 10),
                 Column(
                   children: [
@@ -244,6 +288,14 @@ class _CreatePostState extends State<CreatePost> {
                             icon: const Icon(Icons.work_outline_rounded),
                             filled: true,
                             fillColor: kbgColor,
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                setState(() {
+                                  _addTextField();
+                                });
+                              },
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
@@ -252,16 +304,7 @@ class _CreatePostState extends State<CreatePost> {
                           textInputAction: TextInputAction.next,
                         ),
                       ),
-                    const SizedBox(height: 5.0),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: _addTextField,
-                          child: const Text('Add more'),
-                        ),
-                      ],
-                    ),
+                    
                   ],
                 ),
                 // TextField(
@@ -326,7 +369,7 @@ class _CreatePostState extends State<CreatePost> {
                 ),
 
                 const SizedBox(height: 10.0),
-                                Container(
+                Container(
                   padding: const EdgeInsets.all(10),
                   width: double.infinity,
                   height: 50.0,

@@ -53,7 +53,7 @@ class _PostState extends State<PostItem> {
   }
 
   Future toggleApply() async {
-    if (_isApply) {
+    if (_isApply && widget.applyStatus == "Apply") {
       await Provider.of<PostProvider>(context, listen: false)
           .applyPost(widget.pid)
           .catchError((e) {
@@ -282,7 +282,7 @@ class _PostState extends State<PostItem> {
                       });
                     },
                     child: Text(
-                      _isApply ? 'Apply' : 'Applied',
+                      _isApply?widget.applyStatus:'Applied',
                     ),
                   ),
                 ),

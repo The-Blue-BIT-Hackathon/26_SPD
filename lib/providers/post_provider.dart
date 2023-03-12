@@ -17,8 +17,17 @@ class PostProvider extends ChangeNotifier {
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final List<Post> loadedPost = [];
       extractedData.forEach((postId, postData) {
+        var applySt = "Apply";
+        if (postData['PUID'] != null) {
+          var puid = postData['PUID'] as List<dynamic>;
+          puid.firstWhere((element) => element == _auth.currentUser!.uid);
+          if (puid.isNotEmpty) {
+            applySt = "Applied";
+          }
+        }
         loadedPost.add(
           Post(
+            applystatus: applySt,
             startDate: postData['StartDate'],
             id: postId,
             cid: postData['CID'],
@@ -42,6 +51,30 @@ class PostProvider extends ChangeNotifier {
     }
   }
 
+  Future fetchAppliedPost() async {
+    final uri = Uri.parse(
+        "https://khoj-5415b-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
+    try {
+      final res = await http.get(uri);
+      final extractedData = json.decode(res.body) as Map<String, dynamic>;
+      final List<Post> loadedPost = [];
+      List<dynamic> puid = [];
+      extractedData.forEach((key, value) {
+        if (key == 'PUID') {
+          puid = value;
+        }
+      });
+      if (puid.isNotEmpty) {
+        puid.forEach((pid) {
+          loadedPost.add(posts.firstWhere((element) => pid == element.id));
+        });
+      }
+      posts = loadedPost;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future applyPost(String pid) async {
     final uri = Uri.parse(
         "https://khoj-5415b-default-rtdb.firebaseio.com/Posts/$pid.json");
@@ -53,10 +86,12 @@ class PostProvider extends ChangeNotifier {
         puid = extractedData['PUID'];
       }
       puid.add(_auth.currentUser!.uid);
-      final res2 = await http.patch(uri,
-          body: json.encode({
-            'PUID': puid,
-          }));
+      final res2 = await http.patch(
+        uri,
+        body: json.encode({
+          'PUID': puid,
+        }),
+      );
 
       final uri2 = Uri.parse(
           "https://khoj-5415b-default-rtdb.firebaseio.com/Users/${_auth.currentUser!.uid}.json");
@@ -69,10 +104,12 @@ class PostProvider extends ChangeNotifier {
         }
       });
       puid.add(pid);
-      final res4 = await http.patch(uri2,
-          body: json.encode({
-            'PUID': puid,
-          }));
+      final res4 = await http.patch(
+        uri2,
+        body: json.encode({
+          'PUID': puid,
+        }),
+      );
       notifyListeners();
     } catch (e) {
       rethrow;
@@ -86,6 +123,7 @@ class PostProvider extends ChangeNotifier {
       final res = await http.get(uri);
       final extractedData = json.decode(res.body);
       Post p = Post(
+        applystatus: "",
         startDate: extractedData['StartDate'],
         id: pid,
         cid: extractedData['CID'],

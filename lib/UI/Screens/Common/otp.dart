@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../providers/auth_provider.dart';
+import '../Company/Cbottombar.dart';
 import '../User/Ubottombar.dart';
 import '../User/Uregister.dart';
 import 'choose.dart';
@@ -64,7 +65,7 @@ class _OtpScreenState extends State<OtpScreen> {
           }
         } else {
           if (authProvider.isProfile) {
-            // Navigator.of(ctx).pushReplacementNamed(NgoBottomBar.routeName);
+            Navigator.of(context).pushReplacementNamed(CompanyBottomBar.routeName);
           } else {
             Navigator.of(ctx).pushReplacementNamed(CompanyRegister.routeName);
           }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/Common/choose.dart';
 import 'package:khoj/UI/Screens/Common/login.dart';
+import 'package:khoj/UI/Screens/Company/Cbottombar.dart';
 import 'package:khoj/UI/Screens/Company/Cregister.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/Uregister.dart';
@@ -8,8 +9,6 @@ import 'package:khoj/UI/Screens/widgets/SizeConfig.dart';
 import 'package:khoj/providers/auth_provider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
-import '../../../providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static var routeName = "/splash";
@@ -33,7 +32,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () async{
       await authProvider.autoLogin().then((_) {
         if (authProvider.isAuth) {
-          print(authProvider.isUser);
           if (authProvider.isUser.toString().isEmpty) {
             Navigator.of(context).pushReplacementNamed(Choose.routeName);
           } else if (authProvider.isUser.toString() == "JobSeeker") {
@@ -44,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           } else {
             if (authProvider.isProfile) {
-              // Navigator.of(context).pushReplacementNamed(NgoBottomBar.routeName);
+               Navigator.of(context).pushReplacementNamed(CompanyBottomBar.routeName);
             } else {
               Navigator.of(context).pushReplacementNamed(CompanyRegister.routeName);
             }

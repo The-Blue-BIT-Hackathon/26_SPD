@@ -12,8 +12,10 @@ class Post {
   final String workinghrs;
   final List<dynamic> responsibility;
   final List<dynamic> skills;
+  final String applystatus;
 
   Post({
+    required this.applystatus,
     required this.startDate,
     required this.id,
     required this.cid,

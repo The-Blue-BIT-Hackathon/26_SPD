@@ -8,7 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../constants.dart';
 
 class CompanyBottomBar extends StatefulWidget {
-  static var routeName = '/bottom_nav';
+  static var routeName = '/company_bottom_nav';
 
   const CompanyBottomBar({super.key});
 

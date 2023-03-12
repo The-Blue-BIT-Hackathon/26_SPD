@@ -13,10 +13,10 @@ import 'UI/Screens/User/UActivityScreen.dart';
 import 'UI/Screens/User/UHomeScreen.dart';
 
 var approutes = <String, WidgetBuilder>{
-  //Inital Route
+  //Initial Route
   '/': (context) => const SplashScreen(),
 
-  // //Login Routes
+  //Login Routes
   LogIn.routeName: (context) => LogIn(),
   OtpScreen.routeName: (context) => OtpScreen(),
   Choose.routeName: (context) => Choose(),

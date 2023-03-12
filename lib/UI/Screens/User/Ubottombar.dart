@@ -7,7 +7,6 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../constants.dart';
 
-
 class UserBottomBar extends StatefulWidget {
   static var routeName = '/bottom_nav';
 
@@ -36,7 +35,12 @@ class _UserBottomBarState extends State<UserBottomBar> {
 }
 
 List<Widget> _buildScreens() {
-  return [UHomeScreen(), UChatScreen(), UActivityScreen(),UActivityScreen()];
+  return [
+    UHomeScreen(),
+    const UChatScreen(),
+    const UActivityScreen(),
+    const UActivityScreen()
+  ];
 }
 
 List<PersistentBottomNavBarItem> _navBarsItems() {

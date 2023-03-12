@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,11 +46,23 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyA7QZnwMQQbhD44ZNQ3BUh7vOWYElyZ1Ak',
+    appId: '1:995145015331:web:c28653c784ba792a96d196',
+    messagingSenderId: '995145015331',
+    projectId: 'khoj-5415b',
+    authDomain: 'khoj-5415b.firebaseapp.com',
+    databaseURL: 'https://khoj-5415b-default-rtdb.firebaseio.com',
+    storageBucket: 'khoj-5415b.appspot.com',
+    measurementId: 'G-2K6C7BSC42',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDFco6IlujZlKEbn0E3q6Jb8LJaDBaVVMM',
     appId: '1:995145015331:android:3bf27b8f7e1ada7996d196',
     messagingSenderId: '995145015331',
     projectId: 'khoj-5415b',
+    databaseURL: 'https://khoj-5415b-default-rtdb.firebaseio.com',
     storageBucket: 'khoj-5415b.appspot.com',
   );
 
@@ -62,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:995145015331:ios:173e29afebe57df596d196',
     messagingSenderId: '995145015331',
     projectId: 'khoj-5415b',
+    databaseURL: 'https://khoj-5415b-default-rtdb.firebaseio.com',
     storageBucket: 'khoj-5415b.appspot.com',
     androidClientId: '995145015331-tluigvlehodp98uokpb37chm6pm0nb5v.apps.googleusercontent.com',
     iosClientId: '995145015331-kni5uf54o0avjbubj097ps5t4e0v9m2m.apps.googleusercontent.com',

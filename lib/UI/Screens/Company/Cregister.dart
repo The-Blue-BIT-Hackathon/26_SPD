@@ -141,14 +141,14 @@ class _CompanyRegisterState extends State<CompanyRegister> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Register'),
+        ),
         body: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 0.0),
             child: Column(
               children: [
-                const SizedBox(height: 30.0),
-                //profile picture
-
                 const SizedBox(height: 20.0),
                 Form(
                   key: _form,
@@ -201,7 +201,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                       //   },
                       // ),
 
-                      const SizedBox(height: 10.0),
                       CustomTextField(
                         controller: _emailController,
                         hintText: 'company@gmail.com',
@@ -225,9 +224,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                         text: 'Company Website',
                         Ttype: TextInputType.url,
                       ),
-                      const SizedBox(height: 10.0),
-
-                      const SizedBox(height: 10.0),
 
                       const SizedBox(height: 10.0),
                       CustomTextField(
@@ -263,19 +259,11 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                           _cityController.text = city.toString();
                         },
                       ),
-
-                      const SizedBox(height: 10),
-                      const Divider(),
-                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                Divider(),
-                const SizedBox(height: 10),
                 Container(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 22.0, vertical: 0.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

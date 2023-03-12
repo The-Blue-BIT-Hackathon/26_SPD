@@ -1,9 +1,10 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'package:khoj/UI/Screens/widgets/roundedappBar.dart';
+import 'package:khoj/models/post.dart';
 
 import '../../../constants.dart';
 
@@ -21,10 +22,10 @@ class _CreatePostState extends State<CreatePost> {
   int _counter = 1;
   var _hours;
 
-  final _cnamecontroller = TextEditingController();
-  final _salarycontroller = TextEditingController();
-  final _datecontroller = TextEditingController();
-  final _titlecontroller = TextEditingController();
+  final _cnameController = TextEditingController();
+  final _salaryController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _titleController = TextEditingController();
   final _durationController = TextEditingController();
   final _locationController = TextEditingController();
   final _cityController = TextEditingController();
@@ -34,10 +35,25 @@ class _CreatePostState extends State<CreatePost> {
   final _responsibilityController = TextEditingController();
   final _skillsController = TextEditingController();
 
+  String get date => _dateController.text;
+  String get title => _titleController.text;
+  String get duration => _durationController.text;
+  String get city => _cityController.text;
+  String get state => _stateController.text;
+  String get workingHrs => _workinghrsController.text;
+  String get location => _locationController.text;
+  String get cname => _cnameController.text;
+
   @override
   void initState() {
     super.initState();
     _controllers.add(TextEditingController());
+    _dateController.text = "";
+    _titleController.text = "";
+    _durationController.text = "";
+    _cityController.text = "";
+    _stateController.text = "";
+    _workinghrsController.text = "";
   }
 
   @override
@@ -45,6 +61,12 @@ class _CreatePostState extends State<CreatePost> {
     for (var controller in _controllers) {
       controller.dispose();
     }
+    _dateController.dispose();
+    _titleController.dispose();
+    _durationController.dispose();
+    _cityController.dispose();
+    _stateController.dispose();
+    _workinghrsController.dispose();
     super.dispose();
   }
 
@@ -55,6 +77,42 @@ class _CreatePostState extends State<CreatePost> {
     });
   }
 
+  Future createPost() async {
+    var ls = "", hs = "";
+    if (_currentRangeValues.start.toString().length == 4) {
+      ls = '${_currentRangeValues.start.toString().substring(0, 1)}K';
+    } else if (_currentRangeValues.start.toString().length == 5) {
+      ls = '${_currentRangeValues.start.toString().substring(0, 2)}K';
+    } else if (_currentRangeValues.start.toString().length == 6) {
+      ls = '${_currentRangeValues.start.toString().substring(0, 1)}lac';
+    }
+    if (_currentRangeValues.end.toString().length == 4) {
+      hs = '${_currentRangeValues.end.toString().substring(0, 1)}K';
+    } else if (_currentRangeValues.end.toString().length == 5) {
+      hs = '${_currentRangeValues.end.toString().substring(0, 2)}K';
+    } else if (_currentRangeValues.end.toString().length == 6) {
+      hs = '${_currentRangeValues.end.toString().substring(0, 1)}lac';
+    }
+    final auth = FirebaseAuth.instance;
+    Post p = Post(
+      applystatus: "",
+      startDate: date,
+      id: "",
+      cid: auth.currentUser!.uid,
+      lsalary: ls,
+      hsalary: hs,
+      title: title,
+      city: city,
+      state: state,
+      duration: duration,
+      location: location,
+      workinghrs: workingHrs,
+      responsibility: [],
+      skills: [],
+      cname: cname,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -63,9 +121,7 @@ class _CreatePostState extends State<CreatePost> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 80,
-          flexibleSpace: RoundAppBar(
-            title: 'Create',
-          ),
+          flexibleSpace: const RoundAppBar(title: 'Create'),
         ),
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 10.0),
@@ -74,12 +130,12 @@ class _CreatePostState extends State<CreatePost> {
               children: [
                 const SizedBox(height: 10.0),
                 TextField(
-                  controller: _titlecontroller,
+                  controller: _titleController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     hintText: "Job Title",
                     hintStyle: kTextPopR14,
-                    icon: Icon(Icons.person),
+                    icon: const Icon(Icons.person),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -91,13 +147,12 @@ class _CreatePostState extends State<CreatePost> {
                 ),
                 const SizedBox(height: 10.0),
                 TextField(
-                  controller: _salarycontroller,
-                  
+                  controller: _salaryController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     hintText: "Salary Range",
                     hintStyle: kTextPopR14,
-                    icon: Icon(Icons.person),
+                    icon: const Icon(Icons.person),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -109,7 +164,7 @@ class _CreatePostState extends State<CreatePost> {
                 ),
                 const SizedBox(height: 10.0),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Center(
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,23 +194,7 @@ class _CreatePostState extends State<CreatePost> {
                         ),
                       ])),
                 ),
-                SizedBox(width: 10),
-                // TextField(
-                //   controller: _salarycontroller,
-                //   keyboardType: TextInputType.number,
-                //   decoration: InputDecoration(
-                //     hintText: "Salary",
-                //     hintStyle: kTextPopR14,
-                //     icon: Icon(Icons.person),
-                //     filled: true,
-                //     fillColor: kbgColor,
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.circular(10),
-                //       borderSide: BorderSide.none,
-                //     ),
-                //   ),
-                //   textInputAction: TextInputAction.next,
-                // ),
+                const SizedBox(width: 10),
                 const SizedBox(height: 10.0),
                 TextField(
                   controller: _skillsController,
@@ -163,7 +202,7 @@ class _CreatePostState extends State<CreatePost> {
                   decoration: InputDecoration(
                     hintText: "Skills required",
                     hintStyle: kTextPopR14,
-                    icon: Icon(Icons.person),
+                    icon: const Icon(Icons.person),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -173,9 +212,7 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   textInputAction: TextInputAction.next,
                 ),
-                SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Column(
                   children: [
                     for (var i = 0; i < _counter; i++)
@@ -187,7 +224,7 @@ class _CreatePostState extends State<CreatePost> {
                           decoration: InputDecoration(
                             hintText: "Job Requirement",
                             hintStyle: kTextPopR14,
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             filled: true,
                             fillColor: kbgColor,
                             border: OutlineInputBorder(
@@ -198,13 +235,13 @@ class _CreatePostState extends State<CreatePost> {
                           textInputAction: TextInputAction.next,
                         ),
                       ),
-                    SizedBox(height: 5.0),
+                    const SizedBox(height: 5.0),
                     Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         ElevatedButton(
                           onPressed: _addTextField,
-                          child: Text('Add more'),
+                          child: const Text('Add more'),
                         ),
                       ],
                     ),
@@ -246,7 +283,7 @@ class _CreatePostState extends State<CreatePost> {
                   decoration: InputDecoration(
                     hintText: "Working Hours",
                     hintStyle: kTextPopR14,
-                    icon: Icon(Icons.person),
+                    icon: const Icon(Icons.person),
                     filled: true,
                     fillColor: kbgColor,
                     border: OutlineInputBorder(
@@ -261,12 +298,12 @@ class _CreatePostState extends State<CreatePost> {
                   width: double.infinity,
                   height: 60.0,
                   child: TextFormField(
-                      controller: _datecontroller,
+                      controller: _dateController,
                       // onTap: ,
                       decoration: InputDecoration(
                         hintText: "Start Date",
                         hintStyle: kTextPopR14,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.calendar_today_rounded,
                         ),
                         filled: true,
@@ -294,7 +331,7 @@ class _CreatePostState extends State<CreatePost> {
                           String formattedDate =
                               DateFormat.yMMMMd('en_US').format(pickedDate);
                           setState(() {
-                            _datecontroller.text =
+                            _dateController.text =
                                 formattedDate; //set output date to TextField value.
                           });
                         } else {}
@@ -303,12 +340,12 @@ class _CreatePostState extends State<CreatePost> {
                 const SizedBox(height: 10.0),
                 CSCPicker(
                   dropdownDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                     color: kbgColor,
                     border: Border.all(color: kbgColor, width: 2),
                   ),
                   disabledDropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       color: kbgColor,
                       border: Border.all(color: kbgColor, width: 1)),
                   layout: Layout.vertical,
@@ -316,8 +353,11 @@ class _CreatePostState extends State<CreatePost> {
                   onStateChanged: (state) {},
                   onCityChanged: (city) {},
                 ),
-                SizedBox(width: 10.0,),
-                ElevatedButton(onPressed: (){}, child: Text('Create Post')),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                ElevatedButton(
+                    onPressed: () {}, child: const Text('Create Post')),
               ],
             ),
           ),

@@ -10,7 +10,8 @@ class PostItem extends StatefulWidget {
   final String title;
   final String companyName;
   final String location;
-  final String salary;
+  final String lsalary;
+  final String hsalary;
   final String duration;
   final String dailyhrs;
   final String startDate;
@@ -22,7 +23,8 @@ class PostItem extends StatefulWidget {
     required this.title,
     required this.companyName,
     required this.location,
-    required this.salary,
+    required this.lsalary,
+    required this.hsalary,
     required this.duration,
     required this.dailyhrs,
     required this.startDate,
@@ -149,7 +151,7 @@ class _PostState extends State<PostItem> {
                             size: 18,
                           ),
                           Text(
-                            widget.salary,
+                            widget.lsalary,
                             style: kTextPopB14,
                           ),
                         ],

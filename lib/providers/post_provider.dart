@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:khoj/models/filter.dart';
 import '../models/post.dart';
 
 class PostProvider extends ChangeNotifier {
@@ -32,7 +33,8 @@ class PostProvider extends ChangeNotifier {
             id: postId,
             cid: postData['CID'],
             cname: postData['Cname'],
-            salary: postData['Salary'],
+            lsalary: postData['LSalary'],
+            hsalary: postData['HSalary'],
             title: postData['Title'],
             city: postData['City'],
             state: postData['State'],
@@ -49,6 +51,33 @@ class PostProvider extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future fetchPostFilters(Filter filter) async {
+    List<Post> loadedPost = posts;
+    if (filter.remote) {
+      loadedPost
+          .add(posts.firstWhere((element) => element.location == "Remote"));
+    }
+    if (filter.onsite) {
+      loadedPost
+          .add(posts.firstWhere((element) => element.location == "Onsite"));
+    }
+    if (filter.state.isNotEmpty) {
+      if (filter.city.isNotEmpty) {
+        loadedPost.add(posts.firstWhere((element) =>
+            (element.state == filter.state && element.city == filter.city)));
+      } else {
+        loadedPost
+            .add(posts.firstWhere((element) => element.state == filter.state));
+      }
+    }
+    if (filter.lSalary.isNotEmpty && filter.hSalary.isNotEmpty) {
+      loadedPost.add(posts.firstWhere((element) =>
+          (element.lsalary == filter.lSalary &&
+              element.hsalary == filter.lSalary)));
+    }
+    posts = loadedPost;
   }
 
   Future fetchAppliedPost() async {
@@ -128,7 +157,8 @@ class PostProvider extends ChangeNotifier {
         id: pid,
         cid: extractedData['CID'],
         cname: extractedData['Cname'],
-        salary: extractedData['Salary'],
+        lsalary: extractedData['LSalary'],
+        hsalary: extractedData['HSalary'],
         title: extractedData['Title'],
         city: extractedData['City'],
         state: extractedData['State'],
@@ -156,7 +186,8 @@ class PostProvider extends ChangeNotifier {
           'Cname': posts[0].cname,
           'CID': posts[0].cid,
           'ID': posts[0].id,
-          'Salary': posts[0].salary,
+          'LSalary': posts[0].lsalary,
+          'HSalary': posts[0].hsalary,
           'Title': posts[0].title,
           'City': posts[0].city,
           'State': posts[0].state,

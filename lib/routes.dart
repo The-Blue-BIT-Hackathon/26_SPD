@@ -7,6 +7,7 @@ import 'package:khoj/UI/Screens/Company/Cregister.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/UchatScreen.dart';
 import 'package:khoj/UI/Screens/User/Uregister.dart';
+import 'package:khoj/UI/Screens/User/filtersScreen.dart';
 
 import 'UI/Screens/Common/choose.dart';
 import 'UI/Screens/User/UActivityScreen.dart';
@@ -30,6 +31,7 @@ var approutes = <String, WidgetBuilder>{
   UHomeScreen.routeName: (context) => UHomeScreen(),
   UChatScreen.routeName: (context) => UChatScreen(),
   UActivityScreen.routeName: (context) => UActivityScreen(),
+  FiltersScreen.routeName: (context) => FiltersScreen(),
 
   // Company Routes
   CompanyBottomBar.routeName: (context) => CompanyBottomBar(),

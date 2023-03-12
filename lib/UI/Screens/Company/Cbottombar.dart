@@ -23,6 +23,7 @@ class _CompanyBottomBarState extends State<CompanyBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PersistentTabView(
         context,
         controller: _controller,
@@ -35,16 +36,20 @@ class _CompanyBottomBarState extends State<CompanyBottomBar> {
 }
 
 List<Widget> _buildScreens() {
-  return [ CompanyChatScreen(),CreatePost(), NActivityScreen()];
+  return [
+    // CompanyChatScreen(),
+    CreatePost(),
+    NActivityScreen(),
+  ];
 }
 
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
-    PersistentBottomNavBarItem(
-      icon: Icon(FeatherIcons.messageSquare),
-      title: ("Chat"),
-      activeColorPrimary: kprimaryColor,
-    ),
+    // PersistentBottomNavBarItem(
+    //   icon: Icon(FeatherIcons.messageSquare),
+    //   title: ("Chat"),
+    //   activeColorPrimary: kprimaryColor,
+    // ),
     PersistentBottomNavBarItem(
         icon: Icon(FeatherIcons.plusSquare),
         title: ("Create"),

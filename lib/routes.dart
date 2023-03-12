@@ -18,7 +18,8 @@ var approutes = <String, WidgetBuilder>{
   //Initial Route
   // '/': (context) => const SplashScreen(),
   // '/': (context) => const UserBottomBar(),
-  '/': (context) =>  TestHome(),
+  '/': (context) => const CompanyBottomBar(),
+  // '/': (context) =>  TestHome(),
 
   //Login Routes
   LogIn.routeName: (context) => LogIn(),

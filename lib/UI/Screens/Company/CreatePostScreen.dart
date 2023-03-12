@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:khoj/UI/Screens/widgets/roundedappBar.dart';
 import 'package:khoj/models/post.dart';
+import 'package:khoj/providers/post_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 
@@ -16,7 +18,7 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
-  RangeValues _currentRangeValues = const RangeValues(20000, 50000);
+  RangeValues _currentRangeValues = const RangeValues(0, 0);
 
   List<TextEditingController> _controllers = [];
   int _counter = 1;
@@ -85,6 +87,8 @@ class _CreatePostState extends State<CreatePost> {
       ls = '${_currentRangeValues.start.toString().substring(0, 2)}K';
     } else if (_currentRangeValues.start.toString().length == 8) {
       ls = '${_currentRangeValues.start.toString().substring(0, 1)}lac';
+    } else {
+      ls = "0";
     }
     if (_currentRangeValues.end.toString().length == 6) {
       hs = '${_currentRangeValues.end.toString().substring(0, 1)}K';
@@ -96,21 +100,22 @@ class _CreatePostState extends State<CreatePost> {
     final auth = FirebaseAuth.instance;
     Post p = Post(
       applystatus: "",
-      startDate: date,
+      startDate: _dateController.text,
       id: "",
       cid: auth.currentUser!.uid,
       lsalary: ls,
       hsalary: hs,
       title: title,
-      city: city,
-      state: state,
+      city: _cityController.text,
+      state: _stateController.text,
       duration: duration,
       location: location,
-      workinghrs: workingHrs,
+      workinghrs: _hours,
       responsibility: [],
       skills: [],
       cname: cname,
     );
+    await Provider.of<PostProvider>(context, listen: false).createPost(p);
   }
 
   @override
@@ -134,23 +139,6 @@ class _CreatePostState extends State<CreatePost> {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     hintText: "Job Title",
-                    hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.person),
-                    filled: true,
-                    fillColor: kbgColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-                const SizedBox(height: 10.0),
-                TextField(
-                  controller: _salaryController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Salary Range",
                     hintStyle: kTextPopR14,
                     icon: const Icon(Icons.person),
                     filled: true,
@@ -277,23 +265,6 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                 ),
                 const SizedBox(height: 10.0),
-                TextField(
-                  controller: _workinghrsController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Working Hours",
-                    hintStyle: kTextPopR14,
-                    icon: const Icon(Icons.person),
-                    filled: true,
-                    fillColor: kbgColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-                const SizedBox(height: 10.0),
                 SizedBox(
                   width: double.infinity,
                   height: 60.0,
@@ -331,8 +302,7 @@ class _CreatePostState extends State<CreatePost> {
                           String formattedDate =
                               DateFormat.yMMMMd('en_US').format(pickedDate);
                           setState(() {
-                            _dateController.text =
-                                formattedDate; //set output date to TextField value.
+                            _dateController.text = formattedDate;
                           });
                         } else {}
                       }),
@@ -357,7 +327,7 @@ class _CreatePostState extends State<CreatePost> {
                   width: 10.0,
                 ),
                 ElevatedButton(
-                    onPressed: () {}, child: const Text('Create Post')),
+                    onPressed: createPost, child: const Text('Create Post')),
               ],
             ),
           ),

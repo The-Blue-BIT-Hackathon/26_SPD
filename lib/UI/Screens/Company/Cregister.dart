@@ -3,6 +3,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:khoj/UI/Screens/Company/Cbottombar.dart';
 import 'package:khoj/UI/Screens/widgets/textfield.dart';
 import 'package:khoj/constants.dart';
 import 'package:khoj/models/company.dart';
@@ -128,7 +129,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
         setState(() {
           isLoading = false;
         });
-        // Navigator.of(ctx).pushReplacementNamed(NgoBottomBar.routeName);
+        Navigator.of(ctx).pushReplacementNamed(CompanyBottomBar.routeName);
       });
     } else {
       setState(() {
@@ -171,37 +172,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                         Ttype: TextInputType.phone,
                       ),
                       const SizedBox(height: 10.0),
-                      // TextFormField(
-                      //   maxLength: 10,
-                      //   controller: _phoneController,
-                      //   keyboardType: TextInputType.number,
-                      //   decoration: InputDecoration(
-                      //     counterText: '',
-                      //     prefixText: '+91 ',
-                      //     prefixStyle: kTextPopB14,
-                      //     hintText: "Contact number",
-                      //     hintStyle: kTextPopR14,
-                      //     icon: Icon(Icons.phone),
-                      //     filled: true,
-                      //     fillColor: Colors.green.shade100,
-                      //     border: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       borderSide: BorderSide.none,
-                      //     ),
-                      //   ),
-                      //   textInputAction: TextInputAction.next,
-                      //   validator: (value) {
-                      //     if (value!.isEmpty) {
-                      //       return 'Please enter your phone number';
-                      //     }
-                      //     final phoneRegex = RegExp(r'^\+?\d{9,15}$');
-                      //     if (!phoneRegex.hasMatch(value)) {
-                      //       return 'Please enter a valid phone number';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-
                       CustomTextField(
                         controller: _emailController,
                         hintText: 'company@gmail.com',

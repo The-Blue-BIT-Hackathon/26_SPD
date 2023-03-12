@@ -8,7 +8,7 @@ import 'package:khoj/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class CompanyRegister extends StatefulWidget {
-  static var routeName = '/ngo-register';
+  static var routeName = '/company_register';
 
   const CompanyRegister({super.key});
 
@@ -248,7 +248,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                 const SizedBox(height: 10.0),
 
                 SizedBox(height: 10.0),
-                
+
                 const SizedBox(height: 10.0),
 
                 CustomTextField(
@@ -274,7 +274,6 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                   onCityChanged: (city) {},
                 ),
 
-               
                 const SizedBox(height: 10),
                 Divider(),
                 const SizedBox(height: 10),
@@ -444,7 +443,7 @@ class _CompanyRegisterState extends State<CompanyRegister> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary:
-                                 kprimaryColor, //background color of button
+                                  kprimaryColor, //background color of button
                               shape: RoundedRectangleBorder(
                                   //to set border radius to button
                                   borderRadius: BorderRadius.circular(10)),

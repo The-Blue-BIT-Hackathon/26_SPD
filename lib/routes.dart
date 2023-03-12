@@ -8,8 +8,8 @@ import 'package:khoj/UI/Screens/User/Uregister.dart';
 
 var approutes = <String, WidgetBuilder>{
   //Inital Route
-  // '/': (context) => const UserBottomBar(),
-  '/': (context) => const CompanyBottomBar(),
+  '/': (context) => const UserBottomBar(),
+  // '/': (context) => const CompanyBottomBar(),
 
   // //Login Routes
   // LogIn.routeName: (context) => LogIn(),

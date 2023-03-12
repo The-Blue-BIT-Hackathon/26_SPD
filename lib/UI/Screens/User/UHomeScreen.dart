@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:khoj/UI/Screens/User/chips.dart';
+import 'package:khoj/UI/Screens/User/filtersScreen.dart';
 import 'package:khoj/UI/Screens/widgets/AppBarHome.dart';
 import 'package:khoj/UI/Screens/widgets/UAppDrawer.dart';
 import 'package:khoj/UI/Screens/widgets/posts.dart';
+import 'package:khoj/constants.dart';
 import 'package:pluto_menu_bar/pluto_menu_bar.dart';
 
 class UHomeScreen extends StatelessWidget {
@@ -34,16 +36,25 @@ class UHomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-            //  chips(),
+              //  chips(),
+              SizedBox(height: 10.0),
+              GestureDetector(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FiltersScreen())),
+                child: Chip(
+                  label: Text('Filters'),
+                  backgroundColor: kbgColor,
+                  labelStyle: kTextPopM16,
+                  avatar: Icon(
+                    Icons.filter_list_alt,
+                  ),
+                ),
+              ),
               Post(),
               Post(),
               Post(),
               Post(),
               Post(),
-              // Post(),
-              // Post(),
-              // Post(),
-              // Post(),
             ],
           ),
         ),

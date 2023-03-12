@@ -83,7 +83,6 @@ class _UActivityScreenState extends State<UActivityScreen> {
                                 location: postsData.posts[inx].location,
                                 lsalary: postsData.posts[inx].lsalary,
                                 hsalary: postsData.posts[inx].hsalary,
-                                duration: postsData.posts[inx].duration,
                                 dailyhrs: postsData.posts[inx].workinghrs,
                                 startDate: postsData.posts[inx].startDate,
                                 applyStatus: "Applied",

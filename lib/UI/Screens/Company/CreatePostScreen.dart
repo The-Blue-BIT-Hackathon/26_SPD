@@ -32,10 +32,8 @@ class _CreatePostState extends State<CreatePost> {
   List<dynamic> _tags = [];
 
   final _cnameController = TextEditingController();
-  final _salaryController = TextEditingController();
   final _dateController = TextEditingController();
   final _titleController = TextEditingController();
-  final _durationController = TextEditingController();
   final _locationController = TextEditingController();
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
@@ -46,7 +44,6 @@ class _CreatePostState extends State<CreatePost> {
 
   String get date => _dateController.text;
   String get title => _titleController.text;
-  String get duration => _durationController.text;
   String get city => _cityController.text;
   String get state => _stateController.text;
   String get workingHrs => _workinghrsController.text;
@@ -59,7 +56,6 @@ class _CreatePostState extends State<CreatePost> {
     _controllers.add(TextEditingController());
     _dateController.text = "";
     _titleController.text = "";
-    _durationController.text = "";
     _cityController.text = "";
     _stateController.text = "";
     _workinghrsController.text = "";
@@ -72,7 +68,6 @@ class _CreatePostState extends State<CreatePost> {
     }
     _dateController.dispose();
     _titleController.dispose();
-    _durationController.dispose();
     _cityController.dispose();
     _stateController.dispose();
     _workinghrsController.dispose();
@@ -119,14 +114,15 @@ class _CreatePostState extends State<CreatePost> {
       title: title,
       city: _cityController.text,
       state: _stateController.text,
-      duration: duration,
       location: location,
       workinghrs: _hours,
       responsibility: resp,
       skills: _tags,
       cname: cname,
     );
-    await Provider.of<PostProvider>(context, listen: false).createPost(p);
+    await Provider.of<PostProvider>(context, listen: false).createPost(p).then((value) {
+
+    });
   }
 
   @override

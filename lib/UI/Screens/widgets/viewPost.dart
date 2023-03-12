@@ -162,12 +162,6 @@ class _InternshipDetailsState extends State<InternshipDetails> {
                                       const SizedBox(
                                         width: 3.0,
                                       ),
-                                      Text(
-                                        post?.duration == null
-                                            ? ""
-                                            : post!.duration,
-                                        style: kTextPopB14,
-                                      ),
                                     ],
                                   ),
                                   Row(

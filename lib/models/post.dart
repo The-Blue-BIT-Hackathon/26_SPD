@@ -7,7 +7,6 @@ class Post {
   final String title;
   final String city;
   final String state;
-  final String duration;
   final String location;
   final String startDate;
   final String workinghrs;
@@ -25,7 +24,6 @@ class Post {
     required this.title,
     required this.city,
     required this.state,
-    required this.duration,
     required this.location,
     required this.workinghrs,
     required this.responsibility,

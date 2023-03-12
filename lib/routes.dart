@@ -4,7 +4,6 @@ import 'package:khoj/UI/Screens/Common/otp.dart';
 import 'package:khoj/UI/Screens/Common/splash_screen.dart';
 import 'package:khoj/UI/Screens/Company/Cbottombar.dart';
 import 'package:khoj/UI/Screens/Company/Cregister.dart';
-import 'package:khoj/UI/Screens/User/TestHomeScreen.dart';
 import 'package:khoj/UI/Screens/User/Ubottombar.dart';
 import 'package:khoj/UI/Screens/User/UchatScreen.dart';
 import 'package:khoj/UI/Screens/User/Uregister.dart';

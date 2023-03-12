@@ -12,7 +12,6 @@ class PostItem extends StatefulWidget {
   final String location;
   final String lsalary;
   final String hsalary;
-  final String duration;
   final String dailyhrs;
   final String startDate;
   final String applyStatus;
@@ -25,7 +24,6 @@ class PostItem extends StatefulWidget {
     required this.location,
     required this.lsalary,
     required this.hsalary,
-    required this.duration,
     required this.dailyhrs,
     required this.startDate,
     required this.applyStatus,
@@ -152,21 +150,6 @@ class _PostState extends State<PostItem> {
                           ),
                           Text(
                             widget.lsalary,
-                            style: kTextPopB14,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            FeatherIcons.clock,
-                            size: 18,
-                          ),
-                          const SizedBox(
-                            width: 3.0,
-                          ),
-                          Text(
-                            widget.duration,
                             style: kTextPopB14,
                           ),
                         ],

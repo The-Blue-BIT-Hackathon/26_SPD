@@ -18,6 +18,10 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+
+    bool isRemote = false;
+  bool isOnsite = false;
+  bool isFilter = false;
   RangeValues _currentRangeValues = const RangeValues(0, 0);
 
   List<TextEditingController> _controllers = [];
@@ -294,6 +298,42 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                   ],
                 ),
+                 Row(
+                   children: [
+                     Text(
+                        "Job Type",
+                        textAlign: TextAlign.left,
+                        style: kTextPopR14,
+                      ),
+                      Spacer(),
+                   ],
+                 ),
+                  const SizedBox(height: 10),
+                  Row(children: [
+                    Checkbox(
+                        value: isRemote,
+                        onChanged: (value) {
+                          setState(() {
+                            isRemote = value!;
+                            isFilter = true;
+                          });
+                        }),
+                    Text(
+                      "Remote",
+                      style: kTextPopR14,
+                    ),
+                  ]),
+                  Row(children: [
+                    Checkbox(
+                        value: isOnsite,
+                        onChanged: (value) {
+                          setState(() {
+                            isOnsite = value!;
+                            isFilter = true;
+                          });
+                        }),
+                    Text("Onsite", style: kTextPopR14),
+                  ]),
                 Container(
                   padding: const EdgeInsets.all(10),
                   width: double.infinity,

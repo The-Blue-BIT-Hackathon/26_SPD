@@ -19,7 +19,7 @@ class UserAppdrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30.0,
                   backgroundImage: AssetImage('assets/images/dp.jpg'),
                 ),

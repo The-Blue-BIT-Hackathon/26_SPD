@@ -175,33 +175,33 @@ class PostProvider extends ChangeNotifier {
     }
   }
 
-  Future createPost() async {
+  Future createPost(Post post) async {
     final uri =
         Uri.parse("https://khoj-5415b-default-rtdb.firebaseio.com/Posts.json");
     try {
       final res = await http.post(
         uri,
         body: json.encode({
-          'StartDate': posts[0].startDate,
-          'Cname': posts[0].cname,
-          'CID': posts[0].cid,
-          'ID': posts[0].id,
-          'LSalary': posts[0].lsalary,
-          'HSalary': posts[0].hsalary,
-          'Title': posts[0].title,
-          'City': posts[0].city,
-          'State': posts[0].state,
-          'Duration': posts[0].duration,
-          'NoOfHours': posts[0].workinghrs,
-          'Location': posts[0].location,
-          'Responsibilities': posts[0].responsibility,
-          'Skills': posts[0].skills,
+          'StartDate': post.startDate,
+          'Cname': post.cname,
+          'CID': post.cid,
+          'ID': post.id,
+          'LSalary': post.lsalary,
+          'HSalary': post.hsalary,
+          'Title': post.title,
+          'City': post.city,
+          'State': post.state,
+          'Duration': post.duration,
+          'NoOfHours': post.workinghrs,
+          'Location': post.location,
+          'Responsibilities': post.responsibility,
+          'Skills': post.skills,
           'PUID': [],
         }),
       );
       final resData = json.decode(res.body);
       if (resData['error'] == null) {
-        posts[0].id = resData['name'];
+        post.id = resData['name'];
       }
       notifyListeners();
     } catch (e) {
